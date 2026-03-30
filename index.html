@@ -265,7 +265,15 @@
     padding: 12px 16px; text-align: left;
     font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
     color: var(--text-muted); border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.2);
+    cursor: pointer; user-select: none; white-space: nowrap; transition: color 0.2s;
   }
+  .summary-table th:hover { color: var(--accent); }
+  .summary-table th.sort-asc  { color: var(--accent); }
+  .summary-table th.sort-desc { color: var(--accent); }
+  .summary-table th .sort-icon { opacity: 0.3; margin-left: 4px; font-size: 10px; transition: opacity 0.2s; }
+  .summary-table th:hover .sort-icon { opacity: 0.6; }
+  .summary-table th.sort-asc  .sort-icon,
+  .summary-table th.sort-desc .sort-icon { opacity: 1; color: var(--accent); }
 
   .summary-table td {
     padding: 14px 16px; border-bottom: 1px solid rgba(30,45,69,0.5);
@@ -372,7 +380,7 @@
 <header>
   <div class="header-top">
     <div class="logo-badge">AI</div>
-    <div><div class="header-label">2025 年度進度報告</div></div>
+    <div><div class="header-label">2026 年度進度報告</div></div>
   </div>
   <h1>AI AGENT 測試進度報告</h1>
   <div class="subtitle">跨部門自動化任務 · 測試進度追蹤 · 效益評估</div>
@@ -513,7 +521,7 @@ const ALL_TASKS = [
   { id:4,  dept:"店會中心",  grp:"store",   name:"班表合併工時生成",                  type:"AI Agent",        savings:3.5, execTime:"10分鐘",  freq:22, users:1, progress:"新需求", category:"數據及彙整自動化",   input:"1. 需人工維護EIP工時\n2. 提供條件給AI進行個人工時管理", output:"AI依班表產出店會中心每日工時及個人工時彙總表", steps:["人工維護EIP工時與幹部記錄工時比對","轉貼至工時Excel進行工時管理","依工時進行效率分析"], src:"工時Excel", out:"工時彙總Excel" },
   { id:5,  dept:"店會中心",  grp:"store",   name:"營收袋過刷率分析",                  type:"AI Agent",        savings:7,   execTime:"20分鐘",  freq:22, users:1, progress:"新需求", category:"資料內容提取",       input:"1. 需人工逐一比對各項數據\n2. 透由AI自動比對各項數據", output:"由AI比對完數據後，產生PDA過刷率、未過刷路線、各倉過刷率", steps:["產出當天營收袋返廠查詢及異常紀錄","計算當天營收袋總過刷筆數","比對離島店、空袋，記錄超過3筆路線","比對各倉過刷總筆數","合併3份報表分頁"], src:"MIS-WEB版TDCM640、路線路順檔、店會系統AC.2.5.3", out:"自製報表" },
   { id:6,  dept:"店會中心",  grp:"store",   name:"異常營收袋紀錄生成",                type:"AI Agent",        savings:11,  execTime:"30分鐘",  freq:22, users:1, progress:"新需求", category:"資料內容提取",       input:"1. 需人工逐一記錄\n2. 透由AI掃描辨識", output:"由AI掃描後匯出Excel報表", steps:["收集現場作業人員異常登記表","依店號序排列後掃描至電腦","AI進行圖檔辨認並轉呈Excel","產生報表"], src:"營收袋異常登記表（紙本掃描）", out:"自製Excel報表" },
-  { id:7,  dept:"人資課",    grp:"hr",      name:"月差勤結算",                        type:"自行開發(前端)",   savings:3,   execTime:"2-3小時", freq:1,  users:1, progress:"測試中", category:"邏輯檢核與異常分析", input:"實際加班常有申請時數與實際送出有差異，尤其碰到不同班別時段時", output:"檢核出差異錯誤之處", steps:["查詢班別","查詢實際加班時數與時段","比對班別加班開始時間是否有差異"], src:"異常出勤明細表、實際加班明細表", out:"比對差異明細表" },
+  { id:7,  dept:"人資課",    grp:"hr",      name:"加班異常檢核",                       type:"自行開發(前端)",   savings:3,   execTime:"2-3小時", freq:1,  users:1, progress:"已上線", category:"邏輯檢核與異常分析", input:"實際加班常有申請時數與實際送出有差異，尤其碰到不同班別時段時", output:"檢核出差異錯誤之處", steps:["查詢班別","查詢實際加班時數與時段","比對班別加班開始時間是否有差異"], src:"異常出勤明細表、實際加班明細表", out:"比對差異明細表" },
   { id:8,  dept:"人資課",    grp:"hr",      name:"夜點津貼",                          type:"自行開發(前端)",   savings:2,   execTime:"1-2小時", freq:1,  users:9, progress:"已上線", category:"數據及彙整自動化",   input:"計算班別在22:00-07:00區間的同仁時數及天數", output:"計算出班別在22:00-07:00的同仁時數及天數", steps:["讀取員工班別，判斷22:00-07:00區間人員","扣除請假時數、休息日、颱風天","計算每個人的夜點時數及天數","EC驗收課及客服中心計算跨夜天數"], src:"員工出勤表、班別對照表", out:"夜點津貼計算結果" },
   { id:9,  dept:"人資課",    grp:"hr",      name:"人事保證書更新",                    type:"AI Agent",        savings:1,   execTime:"1-2小時", freq:1,  users:1, progress:"已上線", category:"數據及彙整自動化",   input:"人事保證書每三年需更新一次", output:"檢核出員工年資滿3、6、9、12、15、18、21年的名單", steps:["讀取員工名冊裡的到職日欄位","計算後三個月滿3的倍數年資"], src:"員工名冊", out:"人事保證書更新名單" },
   { id:10, dept:"財會課",    grp:"finance", name:"全寵家匯款TXT",                     type:"自行開發(前端)",   savings:4,   execTime:"2小時",   freq:2,  users:1, progress:"測試中", category:"數據及彙整自動化",   input:"1. 自動從匯款明細表提取抬頭、請款金額\n2. 自動生成符合銀行規範的固定長度TXT檔", output:"符合銀行端匯入格式的TXT匯款文字檔", steps:["資料讀取：讀取匯款明細表","受款人資訊補全：根據抬頭比對供應商主檔","固定欄位填寫","金額處理：乘以100轉為無小數點整數","序號生成：產生不重複7碼序號","格式化輸出"], src:"匯款明細表、供應商銀行主檔", out:"全寵家匯款TXT" },
@@ -618,24 +626,55 @@ document.getElementById("store-cards").innerHTML   = ALL_TASKS.filter(t=>t.grp==
 document.getElementById("hr-cards").innerHTML      = ALL_TASKS.filter(t=>t.grp==="hr").map(makeCard).join("");
 document.getElementById("finance-cards").innerHTML = ALL_TASKS.filter(t=>t.grp==="finance").map(makeCard).join("");
 
-// Summary table
-document.getElementById("summary-tbl").innerHTML = `
-  <thead><tr>
-    <th>部門</th><th>任務名稱</th><th>開發方式</th>
-    <th>進度</th><th>用途分類</th><th>每月節省時數</th><th>執行頻率</th>
-  </tr></thead>
-  <tbody>
-    ${ALL_TASKS.map(t=>`
-      <tr class="${t.progress==="已上線"?"row-online":""}" onclick="openModal(${t.id})" style="cursor:pointer">
-        <td style="font-size:12px;color:var(--text-muted)">${t.dept}</td>
-        <td>${t.name}</td>
-        <td><span class="type-badge ${getTypeClass(t.type)}" style="margin:0">${t.type.replace("1.","").replace("3.","")}</span></td>
-        <td>${getProgBadge(t.progress)}</td>
-        <td><span class="cat-badge ${getCatClass(t.category)}">${t.category}</span></td>
-        <td><div class="savings-bar"><div class="bar-bg"><div class="bar-fill" style="width:${Math.round((t.savings/maxSave)*100)}%"></div></div><span class="bar-val">${t.savings}H</span></div></td>
-        <td style="color:var(--text-dim)">${t.freq}次/月</td>
-      </tr>`).join("")}
-  </tbody>`;
+// Summary table with sorting
+let sortCol = null, sortDir = 1;
+
+const COL_KEYS = ["dept","name","type","progress","category","savings","freq"];
+const COL_LABELS = ["部門","任務名稱","開發方式","進度","用途分類","每月節省時數","執行頻率"];
+
+// Sort order maps for badge columns
+const PROG_ORDER = {"已上線":0,"測試中":1,"新需求":2};
+
+function renderSummaryTable() {
+  let data = [...ALL_TASKS];
+  if (sortCol !== null) {
+    data.sort((a,b) => {
+      let av = a[COL_KEYS[sortCol]], bv = b[COL_KEYS[sortCol]];
+      if (sortCol === 3) { av = PROG_ORDER[av]??9; bv = PROG_ORDER[bv]??9; }
+      if (typeof av === "number") return (av - bv) * sortDir;
+      return String(av).localeCompare(String(bv), "zh-TW") * sortDir;
+    });
+  }
+
+  const thead = COL_LABELS.map((label, i) => {
+    let cls = "";
+    if (sortCol === i) cls = sortDir === 1 ? "sort-asc" : "sort-desc";
+    const icon = sortCol === i ? (sortDir === 1 ? "↑" : "↓") : "⇅";
+    return `<th class="${cls}" onclick="sortTable(${i})">${label}<span class="sort-icon">${icon}</span></th>`;
+  }).join("");
+
+  const tbody = data.map(t => `
+    <tr class="${t.progress==="已上線"?"row-online":""}" onclick="openModal(${t.id})" style="cursor:pointer">
+      <td style="font-size:12px;color:var(--text-muted)">${t.dept}</td>
+      <td>${t.name}</td>
+      <td><span class="type-badge ${getTypeClass(t.type)}" style="margin:0">${t.type.replace("1.","").replace("3.","")}</span></td>
+      <td>${getProgBadge(t.progress)}</td>
+      <td><span class="cat-badge ${getCatClass(t.category)}">${t.category}</span></td>
+      <td><div class="savings-bar"><div class="bar-bg"><div class="bar-fill" style="width:${Math.round((t.savings/maxSave)*100)}%"></div></div><span class="bar-val">${t.savings}H</span></div></td>
+      <td style="color:var(--text-dim)">${t.freq}次/月</td>
+    </tr>`).join("");
+
+  document.getElementById("summary-tbl").innerHTML =
+    `<thead><tr>${thead}</tr></thead><tbody>${tbody}</tbody>`;
+}
+
+function sortTable(col) {
+  if (sortCol === col) { sortDir *= -1; }
+  else { sortCol = col; sortDir = 1; }
+  renderSummaryTable();
+}
+
+renderSummaryTable();
 
 function switchTab(name, el) {
   document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
