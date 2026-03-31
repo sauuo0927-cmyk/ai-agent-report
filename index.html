@@ -38,6 +38,7 @@
     color: var(--text);
     overflow-x: hidden;
     min-height: 100vh;
+    font-size: 16px;
   }
 
   body::before {
@@ -75,27 +76,27 @@
 
   .header-label {
     font-family: 'Oxanium', sans-serif;
-    font-size: 11px; font-weight: 600;
+    font-size: 13px; font-weight: 600;
     letter-spacing: 3px; text-transform: uppercase;
     color: var(--accent); opacity: 0.8;
   }
 
   h1 {
-    font-size: clamp(26px, 3.5vw, 46px);
+    font-size: clamp(32px, 4vw, 54px);
     font-weight: 900; letter-spacing: -0.5px;
     background: linear-gradient(90deg, #fff 0%, var(--accent) 60%, var(--accent2) 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
     line-height: 1.1;
   }
 
-  .subtitle { font-size: 15px; color: var(--text-dim); margin-top: 8px; font-weight: 300; }
+  .subtitle { font-size: 17px; color: var(--text-dim); margin-top: 8px; font-weight: 300; }
 
   .stats-row { display: flex; gap: 16px; margin-top: 36px; flex-wrap: wrap; }
 
   .stat-pill {
     display: flex; align-items: center; gap: 10px;
     background: var(--card); border: 1px solid var(--border);
-    border-radius: 50px; padding: 10px 20px;
+    border-radius: 50px; padding: 12px 22px;
     transition: all 0.3s;
   }
 
@@ -112,8 +113,8 @@
     50%      { box-shadow: 0 0 16px 4px rgba(0,255,136,0.25); }
   }
 
-  .stat-num { font-family: 'Oxanium', sans-serif; font-size: 24px; font-weight: 800; color: var(--accent); }
-  .stat-label { font-size: 13px; color: var(--text-dim); line-height: 1.3; }
+  .stat-num { font-family: 'Oxanium', sans-serif; font-size: 28px; font-weight: 800; color: var(--accent); }
+  .stat-label { font-size: 14px; color: var(--text-dim); line-height: 1.3; }
 
   .nav-tabs {
     position: sticky; top: 0; z-index: 50;
@@ -123,7 +124,7 @@
   }
 
   .nav-tab {
-    padding: 18px 24px; font-size: 13px; font-weight: 500;
+    padding: 20px 28px; font-size: 15px; font-weight: 500;
     color: var(--text-muted); cursor: pointer;
     border-bottom: 2px solid transparent; white-space: nowrap;
     transition: all 0.2s; user-select: none;
@@ -142,16 +143,16 @@
 
   .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 36px; }
   .section-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-  .section-title { font-size: 22px; font-weight: 700; color: var(--text); }
+  .section-title { font-size: 24px; font-weight: 700; color: var(--text); }
   .section-count {
-    font-family: 'Oxanium', sans-serif; font-size: 12px; color: var(--text-muted);
-    background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 3px 10px;
+    font-family: 'Oxanium', sans-serif; font-size: 13px; color: var(--text-muted);
+    background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 4px 12px;
   }
 
   /* Progress badges */
   .prog-badge {
     display: inline-flex; align-items: center; gap: 5px;
-    font-size: 11px; font-weight: 700; border-radius: 6px; padding: 4px 10px; white-space: nowrap;
+    font-size: 13px; font-weight: 700; border-radius: 6px; padding: 5px 12px; white-space: nowrap;
   }
 
   .prog-online {
@@ -165,8 +166,9 @@
   /* Legend */
   .progress-legend {
     display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 28px;
-    padding: 14px 20px; background: var(--card);
+    padding: 16px 22px; background: var(--card);
     border: 1px solid var(--border); border-radius: 12px; align-items: center;
+    font-size: 14px;
   }
 
   /* Cards */
@@ -201,19 +203,19 @@
 
   .card-dept {
     display: inline-flex; align-items: center; gap: 6px;
-    font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
     color: var(--accent); background: rgba(0,198,255,0.08);
-    border: 1px solid rgba(0,198,255,0.2); border-radius: 6px; padding: 4px 10px;
+    border: 1px solid rgba(0,198,255,0.2); border-radius: 6px; padding: 5px 12px;
   }
 
-  .card-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 12px; line-height: 1.4; }
-  .card-desc  { font-size: 13px; color: var(--text-dim); line-height: 1.7; margin-bottom: 16px; }
+  .card-title { font-size: 19px; font-weight: 700; color: var(--text); margin-bottom: 12px; line-height: 1.4; }
+  .card-desc  { font-size: 14px; color: var(--text-dim); line-height: 1.75; margin-bottom: 16px; }
   .card-meta  { display: flex; flex-wrap: wrap; gap: 8px; }
 
   .meta-chip {
     display: flex; align-items: center; gap: 5px;
-    font-size: 11px; color: var(--text-muted);
-    background: rgba(255,255,255,0.04); border-radius: 6px; padding: 4px 10px;
+    font-size: 13px; color: var(--text-muted);
+    background: rgba(255,255,255,0.04); border-radius: 6px; padding: 5px 12px;
   }
 
   .meta-chip.highlight {
@@ -223,20 +225,20 @@
 
   .type-badge {
     display: inline-flex; align-items: center; gap: 5px;
-    font-size: 10px; font-weight: 700; letter-spacing: 0.5px;
-    text-transform: uppercase; border-radius: 5px; padding: 3px 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.5px;
+    text-transform: uppercase; border-radius: 5px; padding: 4px 10px;
   }
 
   .type-agent   { color: #7b61ff; background: rgba(123,97,255,0.1); border: 1px solid rgba(123,97,255,0.25); }
   .type-frontend{ color: var(--accent-warm); background: rgba(255,107,53,0.1); border: 1px solid rgba(255,107,53,0.25); }
 
-  .cat-badge { font-size: 10px; font-weight: 600; border-radius: 4px; padding: 2px 8px; white-space: nowrap; }
+  .cat-badge { font-size: 12px; font-weight: 600; border-radius: 4px; padding: 3px 10px; white-space: nowrap; }
   .cat-logic   { color: #f59e0b; background: rgba(245,158,11,0.1);  border: 1px solid rgba(245,158,11,0.2); }
   .cat-data    { color: #10b981; background: rgba(16,185,129,0.1);  border: 1px solid rgba(16,185,129,0.2); }
   .cat-extract { color: #60a5fa; background: rgba(96,165,250,0.1);  border: 1px solid rgba(96,165,250,0.2); }
 
   .section-divider { display: flex; align-items: center; gap: 16px; margin: 40px 0 28px; }
-  .divider-text { font-size: 13px; font-weight: 600; color: var(--text-muted); white-space: nowrap; letter-spacing: 1px; text-transform: uppercase; }
+  .divider-text { font-size: 14px; font-weight: 600; color: var(--text-muted); white-space: nowrap; letter-spacing: 1px; text-transform: uppercase; }
   .divider-line { flex: 1; height: 1px; background: var(--border); }
 
   /* Charts */
@@ -244,26 +246,26 @@
 
   .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
 
-  .chart-title { font-size: 14px; font-weight: 600; color: var(--text-dim); margin-bottom: 20px; }
+  .chart-title { font-size: 16px; font-weight: 600; color: var(--text-dim); margin-bottom: 20px; }
 
   .donut-wrap { display: flex; align-items: center; gap: 24px; }
 
-  .dleg-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 13px; color: var(--text-dim); }
-  .dleg-dot  { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-  .dleg-val  { margin-left: auto; font-family: 'Oxanium',sans-serif; font-weight: 600; font-size: 14px; }
+  .dleg-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 14px; color: var(--text-dim); }
+  .dleg-dot  { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+  .dleg-val  { margin-left: auto; font-family: 'Oxanium',sans-serif; font-weight: 600; font-size: 16px; }
 
-  .hbar-chart { display: flex; flex-direction: column; gap: 12px; }
-  .hbar-item  { display: flex; flex-direction: column; gap: 5px; }
-  .hbar-label { font-size: 12px; color: var(--text-dim); display: flex; justify-content: space-between; }
-  .hbar-track { height: 8px; background: var(--border); border-radius: 10px; overflow: hidden; }
+  .hbar-chart { display: flex; flex-direction: column; gap: 14px; }
+  .hbar-item  { display: flex; flex-direction: column; gap: 6px; }
+  .hbar-label { font-size: 13px; color: var(--text-dim); display: flex; justify-content: space-between; }
+  .hbar-track { height: 9px; background: var(--border); border-radius: 10px; overflow: hidden; }
   .hbar-fill  { height: 100%; border-radius: 10px; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); }
 
   /* Summary table */
-  .summary-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; }
+  .summary-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; }
 
   .summary-table th {
-    padding: 12px 16px; text-align: left;
-    font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    padding: 14px 18px; text-align: left;
+    font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
     color: var(--text-muted); border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.2);
     cursor: pointer; user-select: none; white-space: nowrap; transition: color 0.2s;
   }
@@ -276,7 +278,7 @@
   .summary-table th.sort-desc .sort-icon { opacity: 1; color: var(--accent); }
 
   .summary-table td {
-    padding: 14px 16px; border-bottom: 1px solid rgba(30,45,69,0.5);
+    padding: 16px 18px; border-bottom: 1px solid rgba(30,45,69,0.5);
     color: var(--text-dim); vertical-align: middle;
   }
 
@@ -288,15 +290,15 @@
   .savings-bar { display: flex; align-items: center; gap: 10px; }
   .bar-bg  { flex: 1; height: 6px; background: var(--border); border-radius: 10px; overflow: hidden; min-width: 60px; }
   .bar-fill{ height: 100%; border-radius: 10px; background: linear-gradient(90deg, var(--accent3), var(--accent)); }
-  .bar-val { font-family: 'Oxanium',sans-serif; font-weight: 600; color: var(--accent3); font-size: 13px; min-width: 32px; }
+  .bar-val { font-family: 'Oxanium',sans-serif; font-weight: 600; color: var(--accent3); font-size: 14px; min-width: 36px; }
 
   /* Launch button */
   .launch-btn {
     display: inline-flex; align-items: center; gap: 6px;
-    font-size: 12px; font-weight: 700;
+    font-size: 14px; font-weight: 700;
     color: #06070f;
     background: linear-gradient(135deg, var(--online-color), #00d4ff);
-    border: none; border-radius: 8px; padding: 7px 14px;
+    border: none; border-radius: 8px; padding: 8px 16px;
     cursor: pointer; text-decoration: none;
     transition: all 0.2s;
     box-shadow: 0 0 14px rgba(0,255,136,0.35);
@@ -315,10 +317,10 @@
   /* Modal launch button */
   .modal-launch-btn {
     display: inline-flex; align-items: center; gap: 8px;
-    font-size: 13px; font-weight: 700;
+    font-size: 15px; font-weight: 700;
     color: #06070f;
     background: linear-gradient(135deg, var(--online-color), #00d4ff);
-    border: none; border-radius: 10px; padding: 10px 20px;
+    border: none; border-radius: 10px; padding: 12px 24px;
     cursor: pointer; text-decoration: none;
     transition: all 0.2s;
     box-shadow: 0 0 18px rgba(0,255,136,0.3);
@@ -361,15 +363,15 @@
 
   .modal-close:hover { background: var(--accent); color: white; }
 
-  .modal-dept  { font-size: 12px; color: var(--accent); margin-bottom: 8px; font-weight: 600; }
-  .modal-title { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.3; }
+  .modal-dept  { font-size: 14px; color: var(--accent); margin-bottom: 8px; font-weight: 600; }
+  .modal-title { font-size: 24px; font-weight: 700; color: var(--text); line-height: 1.3; }
 
   .modal-section { margin-bottom: 20px; }
-  .modal-section-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
-  .modal-section-content { font-size: 13px; color: var(--text-dim); line-height: 1.75; }
+  .modal-section-label { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+  .modal-section-content { font-size: 15px; color: var(--text-dim); line-height: 1.8; }
 
-  .steps-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-  .steps-list li { display: flex; gap: 12px; font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+  .steps-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .steps-list li { display: flex; gap: 12px; font-size: 15px; color: var(--text-dim); line-height: 1.65; }
 
   .step-num {
     width: 22px; height: 22px; border-radius: 50%;
@@ -385,8 +387,8 @@
   }
 
   .modal-meta-item { display: flex; flex-direction: column; gap: 3px; }
-  .modal-meta-key  { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
-  .modal-meta-val  { font-family: 'Oxanium',sans-serif; font-size: 16px; font-weight: 600; color: var(--accent3); }
+  .modal-meta-key  { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--text-muted); }
+  .modal-meta-val  { font-family: 'Oxanium',sans-serif; font-size: 18px; font-weight: 600; color: var(--accent3); }
 
   @keyframes fadeSlide {
     from { opacity: 0; transform: translateY(16px); }
@@ -404,7 +406,7 @@
   footer {
     position: relative; z-index: 5;
     text-align: center; padding: 30px;
-    border-top: 1px solid var(--border); font-size: 12px; color: var(--text-muted);
+    border-top: 1px solid var(--border); font-size: 14px; color: var(--text-muted);
   }
 
   @media (max-width: 800px) {
@@ -443,12 +445,12 @@
   </div>
 
   <div class="progress-legend">
-    <span style="font-size:12px;font-weight:600;color:var(--text-muted)">進度說明：</span>
-    <span class="prog-badge prog-online">🟢 已上線</span><span style="font-size:12px;color:var(--text-muted)">正式上線使用中</span>
+    <span style="font-size:14px;font-weight:600;color:var(--text-muted)">進度說明：</span>
+    <span class="prog-badge prog-online">🟢 已上線</span><span style="font-size:14px;color:var(--text-muted)">正式上線使用中</span>
     &nbsp;
-    <span class="prog-badge prog-testing">🟡 測試中</span><span style="font-size:12px;color:var(--text-muted)">開發完成，驗收測試中</span>
+    <span class="prog-badge prog-testing">🟡 測試中</span><span style="font-size:14px;color:var(--text-muted)">開發完成，驗收測試中</span>
     &nbsp;
-    <span class="prog-badge prog-new">🔵 新需求</span><span style="font-size:12px;color:var(--text-muted)">需求已收集，開發中</span>
+    <span class="prog-badge prog-new">🔵 新需求</span><span style="font-size:14px;color:var(--text-muted)">需求已收集，開發中</span>
   </div>
 
   <div class="chart-row">
@@ -561,7 +563,7 @@ const ALL_TASKS = [
   { id:4,  dept:"店會中心",  grp:"store",   name:"班表合併工時生成",                  type:"AI Agent",        savings:3.5, execTime:"10分鐘",  freq:22, users:1, progress:"新需求", category:"數據及彙整自動化",   input:"1. 需人工維護EIP工時\n2. 提供條件給AI進行個人工時管理", output:"AI依班表產出店會中心每日工時及個人工時彙總表", steps:["人工維護EIP工時與幹部記錄工時比對","轉貼至工時Excel進行工時管理","依工時進行效率分析"], src:"工時Excel", out:"工時彙總Excel" },
   { id:5,  dept:"店會中心",  grp:"store",   name:"營收袋過刷率分析",                  type:"AI Agent",        savings:7,   execTime:"20分鐘",  freq:22, users:1, progress:"新需求", category:"資料內容提取",       input:"1. 需人工逐一比對各項數據\n2. 透由AI自動比對各項數據", output:"由AI比對完數據後，產生PDA過刷率、未過刷路線、各倉過刷率", steps:["產出當天營收袋返廠查詢及異常紀錄","計算當天營收袋總過刷筆數","比對離島店、空袋，記錄超過3筆路線","比對各倉過刷總筆數","合併3份報表分頁"], src:"MIS-WEB版TDCM640、路線路順檔、店會系統AC.2.5.3", out:"自製報表" },
   { id:6,  dept:"店會中心",  grp:"store",   name:"異常營收袋紀錄生成",                type:"AI Agent",        savings:11,  execTime:"30分鐘",  freq:22, users:1, progress:"新需求", category:"資料內容提取",       input:"1. 需人工逐一記錄\n2. 透由AI掃描辨識", output:"由AI掃描後匯出Excel報表", steps:["收集現場作業人員異常登記表","依店號序排列後掃描至電腦","AI進行圖檔辨認並轉呈Excel","產生報表"], src:"營收袋異常登記表（紙本掃描）", out:"自製Excel報表" },
-  { id:7,  dept:"人資課",    grp:"hr",      name:"加班異常檢核",                       type:"自行開發(前端)",   savings:3,   execTime:"2-3小時", freq:1,  users:1, progress:"已上線", link:"https://sauuo0927-cmyk.github.io/hrhelper/", category:"邏輯檢核與異常分析", input:"實際加班常有申請時數與實際送出有差異，尤其碰到不同班別時段時", output:"檢核出差異錯誤之處", steps:["查詢班別","查詢實際加班時數與時段","比對班別加班開始時間是否有差異"], src:"異常出勤明細表、實際加班明細表", out:"比對差異明細表" },
+  { id:7,  dept:"人資課",    grp:"hr",      name:"加班異常檢核",                       type:"自行開發(前端)",   savings:3,   execTime:"2-3小時", freq:1,  users:1, progress:"測試中", link:"https://sauuo0927-cmyk.github.io/hrhelper/", category:"邏輯檢核與異常分析", input:"實際加班常有申請時數與實際送出有差異，尤其碰到不同班別時段時", output:"檢核出差異錯誤之處", steps:["查詢班別","查詢實際加班時數與時段","比對班別加班開始時間是否有差異"], src:"異常出勤明細表、實際加班明細表", out:"比對差異明細表" },
   { id:8,  dept:"人資課",    grp:"hr",      name:"夜點津貼",                          type:"自行開發(前端)",   savings:2,   execTime:"1-2小時", freq:1,  users:9, progress:"已上線", link:"https://sauuo0927-cmyk.github.io/hrhelper/", category:"數據及彙整自動化",   input:"計算班別在22:00-07:00區間的同仁時數及天數", output:"計算出班別在22:00-07:00的同仁時數及天數", steps:["讀取員工班別，判斷22:00-07:00區間人員","扣除請假時數、休息日、颱風天","計算每個人的夜點時數及天數","EC驗收課及客服中心計算跨夜天數"], src:"員工出勤表、班別對照表", out:"夜點津貼計算結果" },
   { id:9,  dept:"人資課",    grp:"hr",      name:"人事保證書更新",                    type:"AI Agent",        savings:1,   execTime:"1-2小時", freq:1,  users:1, progress:"已上線", category:"數據及彙整自動化",   input:"人事保證書每三年需更新一次", output:"檢核出員工年資滿3、6、9、12、15、18、21年的名單", steps:["讀取員工名冊裡的到職日欄位","計算後三個月滿3的倍數年資"], src:"員工名冊", out:"人事保證書更新名單" },
   { id:10, dept:"財會課",    grp:"finance", name:"全寵家匯款TXT",                     type:"自行開發(前端)",   savings:4,   execTime:"2小時",   freq:2,  users:1, progress:"測試中", category:"數據及彙整自動化",   input:"1. 自動從匯款明細表提取抬頭、請款金額\n2. 自動生成符合銀行規範的固定長度TXT檔", output:"符合銀行端匯入格式的TXT匯款文字檔", steps:["資料讀取：讀取匯款明細表","受款人資訊補全：根據抬頭比對供應商主檔","固定欄位填寫","金額處理：乘以100轉為無小數點整數","序號生成：產生不重複7碼序號","格式化輸出"], src:"匯款明細表、供應商銀行主檔", out:"全寵家匯款TXT" },
@@ -659,10 +661,10 @@ document.getElementById("top-cards").innerHTML = sorted.map(makeCard).join("");
 
 // Legend html
 const legHtml = `
-  <span style="font-size:12px;font-weight:600;color:var(--text-muted)">進度：</span>
-  ${getProgBadge("已上線")}&nbsp;<span style="font-size:12px;color:var(--text-muted)">已上線</span>&nbsp;&nbsp;
-  ${getProgBadge("測試中")}&nbsp;<span style="font-size:12px;color:var(--text-muted)">測試中</span>&nbsp;&nbsp;
-  ${getProgBadge("新需求")}&nbsp;<span style="font-size:12px;color:var(--text-muted)">新需求</span>`;
+  <span style="font-size:14px;font-weight:600;color:var(--text-muted)">進度：</span>
+  ${getProgBadge("已上線")}&nbsp;<span style="font-size:14px;color:var(--text-muted)">已上線</span>&nbsp;&nbsp;
+  ${getProgBadge("測試中")}&nbsp;<span style="font-size:14px;color:var(--text-muted)">測試中</span>&nbsp;&nbsp;
+  ${getProgBadge("新需求")}&nbsp;<span style="font-size:14px;color:var(--text-muted)">新需求</span>`;
 
 document.getElementById("svc-legend").innerHTML = legHtml;
 document.getElementById("hr-legend").innerHTML  = legHtml;
@@ -701,7 +703,7 @@ function renderSummaryTable() {
 
   const tbody = data.map(t => `
     <tr class="${t.progress==="已上線"?"row-online":""}" onclick="openModal(${t.id})" style="cursor:pointer">
-      <td style="font-size:12px;color:var(--text-muted)">${t.dept}</td>
+      <td style="font-size:13px;color:var(--text-muted)">${t.dept}</td>
       <td>${t.name}</td>
       <td><span class="type-badge ${getTypeClass(t.type)}" style="margin:0">${t.type.replace("1.","").replace("3.","")}</span></td>
       <td>${getProgBadge(t.progress)}</td>
@@ -743,9 +745,9 @@ function openModal(id) {
     </div>
     <div class="modal-meta-row">
       <div class="modal-meta-item"><div class="modal-meta-key">每月節省</div><div class="modal-meta-val">${t.savings}H</div></div>
-      <div class="modal-meta-item"><div class="modal-meta-key">執行時間</div><div class="modal-meta-val" style="font-size:13px;color:var(--text-dim)">${t.execTime}</div></div>
-      <div class="modal-meta-item"><div class="modal-meta-key">執行頻率</div><div class="modal-meta-val" style="font-size:13px;color:var(--text-dim)">${t.freq}次/月</div></div>
-      <div class="modal-meta-item"><div class="modal-meta-key">使用人數</div><div class="modal-meta-val" style="font-size:13px;color:var(--text-dim)">${t.users}人</div></div>
+      <div class="modal-meta-item"><div class="modal-meta-key">執行時間</div><div class="modal-meta-val" style="font-size:15px;color:var(--text-dim)">${t.execTime}</div></div>
+      <div class="modal-meta-item"><div class="modal-meta-key">執行頻率</div><div class="modal-meta-val" style="font-size:15px;color:var(--text-dim)">${t.freq}次/月</div></div>
+      <div class="modal-meta-item"><div class="modal-meta-key">使用人數</div><div class="modal-meta-val" style="font-size:15px;color:var(--text-dim)">${t.users}人</div></div>
       <div class="modal-meta-item"><div class="modal-meta-key">開發方式</div><span class="type-badge ${getTypeClass(t.type)}" style="margin:4px 0 0">${t.type.replace("1.","").replace("3.","")}</span></div>
       <div class="modal-meta-item"><div class="modal-meta-key">用途分類</div><span class="cat-badge ${getCatClass(t.category)}" style="display:inline-block;margin:4px 0 0">${t.category}</span></div>
     </div>
