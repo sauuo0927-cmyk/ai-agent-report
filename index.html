@@ -459,18 +459,21 @@
       <div class="donut-wrap">
         <svg width="120" height="120" viewBox="0 0 120 120">
           <circle cx="60" cy="60" r="44" fill="none" stroke="#1e2d45" stroke-width="18"/>
+          <!-- 已上線 2/15 → 36.9 -->
           <circle cx="60" cy="60" r="44" fill="none" stroke="#00ff88" stroke-width="18"
-            stroke-dasharray="55 221" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+            stroke-dasharray="36.9 239.6" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+          <!-- 測試中 8/15 → 147.4, offset=-36.9 -->
           <circle cx="60" cy="60" r="44" fill="none" stroke="#fbbf24" stroke-width="18"
-            stroke-dasharray="129 147" stroke-dashoffset="-55" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+            stroke-dasharray="147.4 129.1" stroke-dashoffset="-36.9" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+          <!-- 新需求 5/15 → 92.2, offset=-184.3 -->
           <circle cx="60" cy="60" r="44" fill="none" stroke="#a78bfa" stroke-width="18"
-            stroke-dasharray="92 184" stroke-dashoffset="-184" stroke-linecap="round" transform="rotate(-90 60 60)"/>
+            stroke-dasharray="92.2 184.3" stroke-dashoffset="-184.3" stroke-linecap="round" transform="rotate(-90 60 60)"/>
           <text x="60" y="56" text-anchor="middle" font-family="Oxanium,sans-serif" font-size="18" font-weight="800" fill="white">15</text>
           <text x="60" y="70" text-anchor="middle" font-family="Noto Sans TC,sans-serif" font-size="9" fill="#8a9ab5">項目</text>
         </svg>
         <div>
-          <div class="dleg-item"><div class="dleg-dot" style="background:#00ff88;box-shadow:0 0 6px #00ff88"></div><span>已上線</span><span class="dleg-val" style="color:#00ff88">3</span></div>
-          <div class="dleg-item"><div class="dleg-dot" style="background:#fbbf24"></div><span>測試中</span><span class="dleg-val" style="color:#fbbf24">7</span></div>
+          <div class="dleg-item"><div class="dleg-dot" style="background:#00ff88;box-shadow:0 0 6px #00ff88"></div><span>已上線</span><span class="dleg-val" style="color:#00ff88">2</span></div>
+          <div class="dleg-item"><div class="dleg-dot" style="background:#fbbf24"></div><span>測試中</span><span class="dleg-val" style="color:#fbbf24">8</span></div>
           <div class="dleg-item"><div class="dleg-dot" style="background:#a78bfa"></div><span>新需求</span><span class="dleg-val" style="color:#a78bfa">5</span></div>
         </div>
       </div>
