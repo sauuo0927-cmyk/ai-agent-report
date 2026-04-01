@@ -415,6 +415,128 @@
     .cards-grid { grid-template-columns: 1fr; }
     .chart-row  { grid-template-columns: 1fr; }
   }
+
+  /* ── WORK PROGRESS ── */
+  .progress-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 24px; }
+
+  .progress-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+
+  .progress-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; height: 3px;
+    border-radius: 18px 18px 0 0;
+  }
+
+  .progress-card.dept-hr::before   { background: linear-gradient(90deg, #7b61ff, #a78bfa); }
+  .progress-card.dept-svc::before  { background: linear-gradient(90deg, var(--accent), #00e5a0); }
+
+  .progress-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 40px rgba(0,198,255,0.1);
+    border-color: rgba(0,198,255,0.3);
+  }
+
+  .progress-card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .person-avatar {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    font-weight: 700;
+    flex-shrink: 0;
+    color: white;
+  }
+
+  .dept-hr   .person-avatar { background: linear-gradient(135deg, #7b61ff, #a78bfa); }
+  .dept-svc  .person-avatar { background: linear-gradient(135deg, var(--accent), #00e5a0); }
+
+  .person-info { flex: 1; }
+
+  .person-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .person-dept {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 3px;
+    letter-spacing: 0.5px;
+  }
+
+  .progress-block { margin-bottom: 20px; }
+
+  .progress-block-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .progress-block-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .progress-text {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.8;
+    white-space: pre-line;
+  }
+
+  .online-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .online-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--online-color);
+    background: var(--online-bg);
+    border: 1px solid var(--online-border);
+    border-radius: 8px;
+    padding: 5px 12px;
+    text-shadow: 0 0 6px rgba(0,255,136,0.4);
+  }
+
+  .no-online-tag {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+  }
 </style>
 </head>
 <body>
@@ -434,6 +556,7 @@
   <div class="nav-tab" onclick="switchTab('service',this)">📦 綜合服務部</div>
   <div class="nav-tab" onclick="switchTab('hr',this)">🏢 人資財會部</div>
   <div class="nav-tab" onclick="switchTab('summary',this)">📋 效益彙整</div>
+  <div class="nav-tab" onclick="switchTab('progress',this)">🗓️ 工作進度</div>
 </nav>
 
 <main>
@@ -544,6 +667,106 @@
   </div>
   <div class="chart-card" style="overflow-x:auto">
     <table class="summary-table" id="summary-tbl"></table>
+  </div>
+</section>
+
+<section id="tab-progress" class="section">
+  <div class="section-header">
+    <div class="section-icon" style="background:rgba(0,198,255,0.08)">🗓️</div>
+    <div class="section-title">工作進度</div>
+    <span class="section-count">3 位學員</span>
+  </div>
+
+  <div class="progress-cards">
+
+    <!-- 盧清文 -->
+    <div class="progress-card dept-hr">
+      <div class="progress-card-header">
+        <div class="person-avatar">盧</div>
+        <div class="person-info">
+          <div class="person-name">盧清文</div>
+          <div class="person-dept">人資財會部</div>
+        </div>
+      </div>
+
+      <div class="progress-block">
+        <div class="progress-block-label">📋 項目進度說明</div>
+        <div class="progress-text">1.【人事保證書更新】3/24建立agent，03/30完成測試。
+
+2.【夜點津貼計算】3/24建立agent，3/25-3/26測試，改以claude產出小系統，測試後可執行。</div>
+      </div>
+
+      <div class="progress-block">
+        <div class="progress-block-label">🟢 本週上線項目</div>
+        <div class="online-tags">
+          <span class="online-tag">🟢 人事保證書更新</span>
+          <span class="online-tag">🟢 夜點津貼計算</span>
+        </div>
+      </div>
+
+      <div class="progress-block" style="margin-bottom:0">
+        <div class="progress-block-label">🎯 本週重點項目安排</div>
+        <div class="progress-text">1. 測試【加班異常檢核】、【關係人明細表】agent，評估生成小系統取代。
+
+2. 研究尚未串接系統，如何快速取得/匯入系統資料（例：出勤明細、夜點津貼資料快速匯入HR系統）。
+
+3. 研究人事保證書如何記錄與更新資料。</div>
+      </div>
+    </div>
+
+    <!-- 游鈞捷 -->
+    <div class="progress-card dept-svc">
+      <div class="progress-card-header">
+        <div class="person-avatar">游</div>
+        <div class="person-info">
+          <div class="person-name">游鈞捷</div>
+          <div class="person-dept">綜合服務部</div>
+        </div>
+      </div>
+
+      <div class="progress-block">
+        <div class="progress-block-label">📋 項目進度說明</div>
+        <div class="progress-text">1.【案件分析更新】03/24 完成 Agent 建立，03/27 提示詞優化，03/30 進行調整與測試。
+2.【店舖理賠資料】03/24 完成 Agent 建立，03/30 進行調整與測試。</div>
+      </div>
+
+      <div class="progress-block">
+        <div class="progress-block-label">🟢 本週上線項目</div>
+        <div class="no-online-tag">本週無上線項目</div>
+      </div>
+
+      <div class="progress-block" style="margin-bottom:0">
+        <div class="progress-block-label">🎯 本週重點項目安排</div>
+        <div class="progress-text">驗證匯入資料分析後之產出結果（包含欄位與內容）是否符合業務需求。</div>
+      </div>
+    </div>
+
+    <!-- 李國華 -->
+    <div class="progress-card dept-svc">
+      <div class="progress-card-header">
+        <div class="person-avatar">李</div>
+        <div class="person-info">
+          <div class="person-name">李國華</div>
+          <div class="person-dept">綜合服務部</div>
+        </div>
+      </div>
+
+      <div class="progress-block">
+        <div class="progress-block-label">📋 項目進度說明</div>
+        <div class="progress-text">1.【營收袋異常彙總表】調整與測試。</div>
+      </div>
+
+      <div class="progress-block">
+        <div class="progress-block-label">🟢 本週上線項目</div>
+        <div class="no-online-tag">本週無上線項目</div>
+      </div>
+
+      <div class="progress-block" style="margin-bottom:0">
+        <div class="progress-block-label">🎯 本週重點項目安排</div>
+        <div class="progress-text">驗證匯入資料分析後之產出結果（包含欄位與內容）是否符合業務需求。</div>
+      </div>
+    </div>
+
   </div>
 </section>
 
