@@ -674,7 +674,7 @@
 
 <section id="tab-progress" class="section">
   <div class="section-header">
-    <div class="section-icon" style="background:rgba(0,198,255,0.08)">🗓️</div>
+    <div class="section-icon" style="background:rgba(37,99,235,0.08)">🗓️</div>
     <div class="section-title">工作進度</div>
     <span class="section-count">3 位學員</span>
   </div>
@@ -693,26 +693,18 @@
 
       <div class="progress-block">
         <div class="progress-block-label">📋 項目進度說明</div>
-        <div class="progress-text">1.【人事保證書更新】3/24建立agent，03/30完成測試。
-
-2.【夜點津貼計算】3/24建立agent，3/25-3/26測試，改以claude產出小系統，測試後可執行。</div>
+        <div class="progress-text">建立 Power Automate 在 EIP 系統抓取出勤資料程序。
+關係人明細表產出欄位確認。</div>
       </div>
 
       <div class="progress-block">
         <div class="progress-block-label">🟢 本週上線項目</div>
-        <div class="online-tags">
-          <span class="online-tag">🟢 人事保證書更新</span>
-          <span class="online-tag">🟢 夜點津貼計算</span>
-        </div>
+        <div class="no-online-tag">本週無上線項目</div>
       </div>
 
       <div class="progress-block" style="margin-bottom:0">
         <div class="progress-block-label">🎯 本週重點項目安排</div>
-        <div class="progress-text">1. 測試【加班異常檢核】、【關係人明細表】agent，評估生成小系統取代。
-
-2. 研究尚未串接系統，如何快速取得/匯入系統資料（例：出勤明細、夜點津貼資料快速匯入HR系統）。
-
-3. 研究人事保證書如何記錄與更新資料。</div>
+        <div class="progress-text">測試【加班異常檢核】agent，評估生成小系統取代。</div>
       </div>
     </div>
 
@@ -728,8 +720,8 @@
 
       <div class="progress-block">
         <div class="progress-block-label">📋 項目進度說明</div>
-        <div class="progress-text">1.【案件分析更新】03/24 完成 Agent 建立，03/27 提示詞優化，03/30 進行調整與測試。
-2.【店舖理賠資料】03/24 完成 Agent 建立，03/30 進行調整與測試。</div>
+        <div class="progress-text">1.【案件分析更新】完成相關系統功能測試。
+2.【店舖理賠資料】完成提示詞（Prompt）優化，解決先前因資料量過大導致 Agent 無法執行的問題。</div>
       </div>
 
       <div class="progress-block">
@@ -739,7 +731,7 @@
 
       <div class="progress-block" style="margin-bottom:0">
         <div class="progress-block-label">🎯 本週重點項目安排</div>
-        <div class="progress-text">驗證匯入資料分析後之產出結果（包含欄位與內容）是否符合業務需求。</div>
+        <div class="progress-text">持續針對優化後的提示詞進行多輪壓力測試，確保在大量資料環境下執行結果的穩定性與準確性。</div>
       </div>
     </div>
 
@@ -755,7 +747,11 @@
 
       <div class="progress-block">
         <div class="progress-block-label">📋 項目進度說明</div>
-        <div class="progress-text">1.【營收袋異常彙總表】調整與測試。</div>
+        <div class="progress-text">1.【營收袋異常彙總表】調整與測試。
+2.【營收袋過刷分析】調整與測試。
+3.【排班小助理】調整與測試。
+4.【班表合併工時生成】調整與測試。
+5.【停車單單據辨識】調整與測試。</div>
       </div>
 
       <div class="progress-block">
@@ -763,9 +759,19 @@
         <div class="no-online-tag">本週無上線項目</div>
       </div>
 
-      <div class="progress-block" style="margin-bottom:0">
+      <div class="progress-block">
         <div class="progress-block-label">🎯 本週重點項目安排</div>
-        <div class="progress-text">驗證匯入資料分析後之產出結果（包含欄位與內容）是否符合業務需求。</div>
+        <div class="progress-text">1. 變更彙總表紙本格式後，再進行 AI 辨識，使其數位化之數值能更完整。
+2. 營收袋資料較多，評估是否需更換 Claude 來測試。
+3. 停車單辨識部分，需與資訊再次確認相關細節後再進行測試。
+4. 排班與班表需再修正提示詞。</div>
+      </div>
+
+      <div class="progress-block" style="margin-bottom:0">
+        <div class="progress-block-label">➕ 新增項目</div>
+        <div class="online-tags">
+          <span class="online-tag" style="color:#2563eb;background:#eff6ff;border-color:#93c5fd">📌 停車單單據辨識</span>
+        </div>
       </div>
     </div>
 
@@ -792,7 +798,7 @@ const ALL_TASKS = [
   { id:5,  dept:"店會中心",  grp:"store",   name:"營收袋過刷率分析",                  type:"AI Agent",        savings:7,   execTime:"20分鐘",  freq:22, users:1, progress:"新需求", category:"資料內容提取",       input:"1. 需人工逐一比對各項數據\n2. 透由AI自動比對各項數據", output:"由AI比對完數據後，產生PDA過刷率、未過刷路線、各倉過刷率", steps:["產出當天營收袋返廠查詢及異常紀錄","計算當天營收袋總過刷筆數","比對離島店、空袋，記錄超過3筆路線","比對各倉過刷總筆數","合併3份報表分頁"], src:"MIS-WEB版TDCM640、路線路順檔、店會系統AC.2.5.3", out:"自製報表" },
   { id:6,  dept:"店會中心",  grp:"store",   name:"異常營收袋紀錄生成",                type:"AI Agent",        savings:11,  execTime:"30分鐘",  freq:22, users:1, progress:"新需求", category:"資料內容提取",       input:"1. 需人工逐一記錄\n2. 透由AI掃描辨識", output:"由AI掃描後匯出Excel報表", steps:["收集現場作業人員異常登記表","依店號序排列後掃描至電腦","AI進行圖檔辨認並轉呈Excel","產生報表"], src:"營收袋異常登記表（紙本掃描）", out:"自製Excel報表" },
   { id:7,  dept:"人資課",    grp:"hr",      name:"加班異常檢核",                       type:"自行開發(前端)",   savings:3,   execTime:"2-3小時", freq:1,  users:1, progress:"測試中", link:"https://sauuo0927-cmyk.github.io/hrhelper/", category:"邏輯檢核與異常分析", input:"實際加班常有申請時數與實際送出有差異，尤其碰到不同班別時段時", output:"檢核出差異錯誤之處", steps:["查詢班別","查詢實際加班時數與時段","比對班別加班開始時間是否有差異"], src:"異常出勤明細表、實際加班明細表", out:"比對差異明細表" },
-  { id:8,  dept:"人資課",    grp:"hr",      name:"夜點津貼",                          type:"自行開發(前端)",   savings:2,   execTime:"1-2小時", freq:1,  users:9, progress:"已上線", link:"https://sauuo0927-cmyk.github.io/hrhelper/", category:"數據及彙整自動化",   input:"計算班別在22:00-07:00區間的同仁時數及天數", output:"計算出班別在22:00-07:00的同仁時數及天數", steps:["讀取員工班別，判斷22:00-07:00區間人員","扣除請假時數、休息日、颱風天","計算每個人的夜點時數及天數","EC驗收課及客服中心計算跨夜天數"], src:"員工出勤表、班別對照表", out:"夜點津貼計算結果" },
+  { id:8,  dept:"人資課",    grp:"hr",      name:"夜點津貼",                          type:"自行開發(前端)",   savings:2,   execTime:"1-2小時", freq:1,  users:9, progress:"已上線", link:"https://sauuo0927-cmyk.github.io/hrhelper/", category:"數據及彙整自動化",   input:"計算班別在22:00-07:00區間的同仁時數及天數", output:"計算出班別在22:00-07:00的同仁時數及天數\n使用 Power Automate 至 EIP 系統抓取資料", steps:["使用 Power Automate 至 EIP 系統自動抓取出勤資料","讀取員工班別，判斷22:00-07:00區間人員","扣除請假時數、休息日、颱風天","計算每個人的夜點時數及天數","EC驗收課及客服中心計算跨夜天數"], src:"員工出勤表、班別對照表", out:"夜點津貼計算結果" },
   { id:9,  dept:"人資課",    grp:"hr",      name:"人事保證書更新",                    type:"AI Agent",        savings:1,   execTime:"1-2小時", freq:1,  users:1, progress:"已上線", category:"數據及彙整自動化",   input:"人事保證書每三年需更新一次", output:"檢核出員工年資滿3、6、9、12、15、18、21年的名單", steps:["讀取員工名冊裡的到職日欄位","計算後三個月滿3的倍數年資"], src:"員工名冊", out:"人事保證書更新名單" },
   { id:10, dept:"財會課",    grp:"finance", name:"全寵家匯款TXT",                     type:"自行開發(前端)",   savings:4,   execTime:"2小時",   freq:2,  users:1, progress:"測試中", category:"數據及彙整自動化",   input:"1. 自動從匯款明細表提取抬頭、請款金額\n2. 自動生成符合銀行規範的固定長度TXT檔", output:"符合銀行端匯入格式的TXT匯款文字檔", steps:["資料讀取：讀取匯款明細表","受款人資訊補全：根據抬頭比對供應商主檔","固定欄位填寫","金額處理：乘以100轉為無小數點整數","序號生成：產生不重複7碼序號","格式化輸出"], src:"匯款明細表、供應商銀行主檔", out:"全寵家匯款TXT" },
   { id:11, dept:"財會課",    grp:"finance", name:"暫收款-理賠開立明細彙整",            type:"AI Agent",        savings:4,   execTime:"4小時",   freq:1,  users:1, progress:"測試中", category:"數據及彙整自動化",   input:"1. 多來源資料採集\n2. 跨表特徵關聯\n3. 多維度金額勾稽（發票金額=業聯金額=總賠償金額）", output:"1. 理賠資料全明細彙總表\n2. 三方勾稽差異分析表", steps:["底稿初始化：以開立發票明細表為基準","第一層關聯：依發文字號比對業聯明細","第二層關聯：跨月份檢索理賠明細","金額三方自動校驗","格式化輸出"], src:"開立發票明細、業聯明細、多月份理賠明細", out:"暫收款-理賠明細彙整" },
