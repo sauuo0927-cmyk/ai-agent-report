@@ -539,6 +539,23 @@
     color: var(--text-muted);
     font-style: italic;
   }
+
+  /* NEW badge */
+  .new-badge {
+    display: inline-flex; align-items: center;
+    font-size: 10px; font-weight: 800; letter-spacing: 0.5px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #f43f5e, #e11d48);
+    border-radius: 4px; padding: 2px 7px;
+    vertical-align: middle; margin-left: 5px;
+    box-shadow: 0 2px 6px rgba(244,63,94,0.35);
+    animation: newPop 0.4s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+
+  @keyframes newPop {
+    from { transform: scale(0.5); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+  }
 </style>
 </head>
 <body>
@@ -554,118 +571,38 @@
 </header>
 
 <nav class="nav-tabs">
-  <div class="nav-tab active" onclick="switchTab('overview',this)">📊 總覽</div>
-  <div class="nav-tab" onclick="switchTab('service',this)">📦 綜合服務部</div>
-  <div class="nav-tab" onclick="switchTab('hr',this)">🏢 人資財會部</div>
-  <div class="nav-tab" onclick="switchTab('summary',this)">📋 效益彙整</div>
+  <div class="nav-tab active" onclick="switchTab('tasks',this)">📋 基本需求說明</div>
+  <div class="nav-tab" onclick="switchTab('summary',this)">📊 專案統計</div>
   <div class="nav-tab" onclick="switchTab('progress',this)">🗓️ 工作進度</div>
 </nav>
 
 <main>
 
-<section id="tab-overview" class="section active">
+<section id="tab-tasks" class="section active">
   <div class="section-header">
-    <div class="section-icon" style="background:rgba(0,198,255,0.1)">📊</div>
-    <div class="section-title">開發 &amp; 測試總覽</div>
+    <div class="section-icon" style="background:rgba(37,99,235,0.08)">📋</div>
+    <div class="section-title">基本需求說明</div>
+    <span class="section-count">16 項任務</span>
   </div>
+  <div class="progress-legend" id="tasks-legend"></div>
 
-  <div class="progress-legend">
-    <span style="font-size:14px;font-weight:600;color:var(--text-muted)">進度說明：</span>
-    <span class="prog-badge prog-online">🟢 已上線</span><span style="font-size:14px;color:var(--text-muted)">正式上線使用中</span>
-    &nbsp;
-    <span class="prog-badge prog-testing">🟡 測試中</span><span style="font-size:14px;color:var(--text-muted)">開發完成，驗收測試中</span>
-    &nbsp;
-    <span class="prog-badge prog-new">🔵 新需求</span><span style="font-size:14px;color:var(--text-muted)">需求已收集，開發中</span>
-  </div>
-
-  <div class="chart-row">
-    <div class="chart-card">
-      <div class="chart-title">🚦 測試進度分佈</div>
-      <div class="donut-wrap">
-        <svg width="120" height="120" viewBox="0 0 120 120">
-          <circle cx="60" cy="60" r="44" fill="none" stroke="#e5e7eb" stroke-width="18"/>
-          <!-- 已上線 2/15 → 36.9 -->
-          <circle cx="60" cy="60" r="44" fill="none" stroke="#059669" stroke-width="18"
-            stroke-dasharray="36.9 239.6" stroke-linecap="round" transform="rotate(-90 60 60)"/>
-          <!-- 測試中 8/15 → 147.4, offset=-36.9 -->
-          <circle cx="60" cy="60" r="44" fill="none" stroke="#d97706" stroke-width="18"
-            stroke-dasharray="147.4 129.1" stroke-dashoffset="-36.9" stroke-linecap="round" transform="rotate(-90 60 60)"/>
-          <!-- 新需求 5/15 → 92.2, offset=-184.3 -->
-          <circle cx="60" cy="60" r="44" fill="none" stroke="#7c3aed" stroke-width="18"
-            stroke-dasharray="92.2 184.3" stroke-dashoffset="-184.3" stroke-linecap="round" transform="rotate(-90 60 60)"/>
-          <text x="60" y="56" text-anchor="middle" font-family="Oxanium,sans-serif" font-size="18" font-weight="800" fill="#111827">15</text>
-          <text x="60" y="70" text-anchor="middle" font-family="Noto Sans TC,sans-serif" font-size="9" fill="#9ca3af">項目</text>
-        </svg>
-        <div>
-          <div class="dleg-item"><div class="dleg-dot" style="background:#059669"></div><span>已上線</span><span class="dleg-val" style="color:#059669">2</span></div>
-          <div class="dleg-item"><div class="dleg-dot" style="background:#d97706"></div><span>測試中</span><span class="dleg-val" style="color:#d97706">8</span></div>
-          <div class="dleg-item"><div class="dleg-dot" style="background:#7c3aed"></div><span>新需求</span><span class="dleg-val" style="color:#7c3aed">5</span></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="chart-card">
-      <div class="chart-title">🔧 開發方式分佈</div>
-      <div class="donut-wrap">
-        <svg width="120" height="120" viewBox="0 0 120 120">
-          <circle cx="60" cy="60" r="44" fill="none" stroke="#e5e7eb" stroke-width="18"/>
-          <circle cx="60" cy="60" r="44" fill="none" stroke="#7c3aed" stroke-width="18"
-            stroke-dasharray="184 92" stroke-linecap="round" transform="rotate(-90 60 60)"/>
-          <circle cx="60" cy="60" r="44" fill="none" stroke="#ea580c" stroke-width="18"
-            stroke-dasharray="92 184" stroke-dashoffset="-184" stroke-linecap="round" transform="rotate(-90 60 60)"/>
-          <text x="60" y="56" text-anchor="middle" font-family="Oxanium,sans-serif" font-size="18" font-weight="800" fill="#111827">15</text>
-          <text x="60" y="70" text-anchor="middle" font-family="Noto Sans TC,sans-serif" font-size="9" fill="#9ca3af">項目</text>
-        </svg>
-        <div>
-          <div class="dleg-item"><div class="dleg-dot" style="background:#7c3aed"></div><span>AI Agent</span><span class="dleg-val" style="color:#7c3aed">10</span></div>
-          <div class="dleg-item"><div class="dleg-dot" style="background:#ea580c"></div><span>前端自行開發</span><span class="dleg-val" style="color:#ea580c">5</span></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="chart-card" style="margin-bottom:24px">
-    <div class="chart-title">⏱️ 各任務每月節省時數（小時）</div>
-    <div class="hbar-chart" id="savings-chart"></div>
-  </div>
-
-  <div class="section-divider">
-    <div class="divider-text">節省時數 Top 6</div>
-    <div class="divider-line"></div>
-  </div>
-  <div class="cards-grid" id="top-cards"></div>
-</section>
-
-<section id="tab-service" class="section">
-  <div class="section-header">
-    <div class="section-icon" style="background:rgba(0,198,255,0.08)">📦</div>
-    <div class="section-title">綜合服務部</div>
-    <span class="section-count">6 項任務</span>
-  </div>
-  <div class="progress-legend" id="svc-legend"></div>
-  <div class="section-divider"><div class="divider-text">客服中心</div><div class="divider-line"></div></div>
+  <div class="section-divider"><div class="divider-text">綜合服務部 · 客服中心</div><div class="divider-line"></div></div>
   <div class="cards-grid" id="cs-cards"></div>
-  <div class="section-divider" style="margin-top:40px"><div class="divider-text">店會中心</div><div class="divider-line"></div></div>
-  <div class="cards-grid" id="store-cards"></div>
-</section>
 
-<section id="tab-hr" class="section">
-  <div class="section-header">
-    <div class="section-icon" style="background:rgba(123,97,255,0.08)">🏢</div>
-    <div class="section-title">人資財會部</div>
-    <span class="section-count">9 項任務</span>
-  </div>
-  <div class="progress-legend" id="hr-legend"></div>
-  <div class="section-divider"><div class="divider-text">人資課</div><div class="divider-line"></div></div>
+  <div class="section-divider" style="margin-top:40px"><div class="divider-text">綜合服務部 · 店會中心</div><div class="divider-line"></div></div>
+  <div class="cards-grid" id="store-cards"></div>
+
+  <div class="section-divider" style="margin-top:40px"><div class="divider-text">人資財會部 · 人資課</div><div class="divider-line"></div></div>
   <div class="cards-grid" id="hr-cards"></div>
-  <div class="section-divider" style="margin-top:40px"><div class="divider-text">財會課</div><div class="divider-line"></div></div>
+
+  <div class="section-divider" style="margin-top:40px"><div class="divider-text">人資財會部 · 財會課</div><div class="divider-line"></div></div>
   <div class="cards-grid" id="finance-cards"></div>
 </section>
 
 <section id="tab-summary" class="section">
   <div class="section-header">
     <div class="section-icon" style="background:rgba(0,229,160,0.08)">📋</div>
-    <div class="section-title">效益彙整一覽表</div>
+    <div class="section-title">專案統計</div>
   </div>
   <div class="chart-card" style="overflow-x:auto">
     <table class="summary-table" id="summary-tbl"></table>
@@ -693,8 +630,8 @@
 
       <div class="progress-block">
         <div class="progress-block-label">📋 項目進度說明</div>
-        <div class="progress-text">建立 Power Automate 在 EIP 系統抓取出勤資料程序。
-關係人明細表產出欄位確認。</div>
+        <div class="progress-text">1. 測試【加班異常檢核】系統之產出資料正確性。
+2. 測試【部門損益實績拆分】之計算邏輯及評估優化作業流程。</div>
       </div>
 
       <div class="progress-block">
@@ -704,7 +641,7 @@
 
       <div class="progress-block" style="margin-bottom:0">
         <div class="progress-block-label">🎯 本週重點項目安排</div>
-        <div class="progress-text">測試【加班異常檢核】agent，評估生成小系統取代。</div>
+        <div class="progress-text">測試【部門損益實績拆分】之計算邏輯，現行實績系統人員需將損益 key in 至系統，評估改以 Claude 開發。</div>
       </div>
     </div>
 
@@ -720,8 +657,9 @@
 
       <div class="progress-block">
         <div class="progress-block-label">📋 項目進度說明</div>
-        <div class="progress-text">1.【案件分析更新】完成相關系統功能測試。
-2.【店舖理賠資料】完成提示詞（Prompt）優化，解決先前因資料量過大導致 Agent 無法執行的問題。</div>
+        <div class="progress-text">1.【案件分析更新】完成相關系統功能測試與優化調整。
+2.【店舖理賠資料】完成相關系統功能測試與優化調整。
+3.【排班小幫手】新增項目。</div>
       </div>
 
       <div class="progress-block">
@@ -729,9 +667,16 @@
         <div class="no-online-tag">本週無上線項目</div>
       </div>
 
-      <div class="progress-block" style="margin-bottom:0">
+      <div class="progress-block">
         <div class="progress-block-label">🎯 本週重點項目安排</div>
-        <div class="progress-text">持續針對優化後的提示詞進行多輪壓力測試，確保在大量資料環境下執行結果的穩定性與準確性。</div>
+        <div class="progress-text">新增項目【排班小幫手】建構基本提示詞、模組測試。</div>
+      </div>
+
+      <div class="progress-block" style="margin-bottom:0">
+        <div class="progress-block-label">➕ 新增項目</div>
+        <div class="online-tags">
+          <span class="online-tag" style="color:#2563eb;background:#eff6ff;border-color:#93c5fd">📌 排班小幫手</span>
+        </div>
       </div>
     </div>
 
@@ -759,19 +704,13 @@
         <div class="no-online-tag">本週無上線項目</div>
       </div>
 
-      <div class="progress-block">
-        <div class="progress-block-label">🎯 本週重點項目安排</div>
-        <div class="progress-text">1. 變更彙總表紙本格式後，再進行 AI 辨識，使其數位化之數值能更完整。
-2. 營收袋資料較多，評估是否需更換 Claude 來測試。
-3. 停車單辨識部分，需與資訊再次確認相關細節後再進行測試。
-4. 排班與班表需再修正提示詞。</div>
-      </div>
-
       <div class="progress-block" style="margin-bottom:0">
-        <div class="progress-block-label">➕ 新增項目</div>
-        <div class="online-tags">
-          <span class="online-tag" style="color:#2563eb;background:#eff6ff;border-color:#93c5fd">📌 停車單單據辨識</span>
-        </div>
+        <div class="progress-block-label">🎯 本週重點項目安排</div>
+        <div class="progress-text">1.【營收袋異常彙總表】已測試完成，需調整作業人員書寫字體。
+2.【營收袋過刷分析】詢問顧問後可執行，需調整提示詞。
+3.【排班小助理】測試後結果不如預期，需再調整提示詞。
+4.【班表合併工時生成】已測試完成，待主管核准後上線。
+5.【停車單單據辨識】顧問回覆圖檔不可建立，需討論其它精進方向。</div>
       </div>
     </div>
 
@@ -791,12 +730,13 @@
 
 <script>
 const ALL_TASKS = [
-  { id:1,  dept:"客服中心",  grp:"cs",      name:"案件分析",                          type:"AI Agent",        savings:5,   execTime:"30分鐘",  freq:30, users:2, progress:"測試中", category:"邏輯檢核與異常分析", input:"1. 案型反應最多問題\n2. 異常是否集中在特定物流中心、路線或店舖？", output:"1. 案型分析（配送、退貨、服務等）\n2. 異常問題排行（Top問題／路線／店舖）", steps:["彙整指定期間內的客服案件資料","將客訴內容進行分類與關鍵字分析","比對歷史數據，找出異常成長或集中","辨識可能的熱點","產出重點說明文字"], src:"客服系統-綜合分析報表(Excel)", out:"客服案型分析資料" },
-  { id:2,  dept:"客服中心",  grp:"cs",      name:"資料整理-理賠彙整報表",              type:"AI Agent",        savings:9,   execTime:"60分鐘",  freq:9,  users:1, progress:"新需求", category:"資料內容提取",       input:"1. 將多張報表彙整成所需報表\n2. 檢核資料正確性\n3. 依提供權責單位產出不同報表", output:"1. 店舖類型賠償彙整表\n2. 各責任歸屬賠償彙整表", steps:["每週檢視報表資料來源正確性","依不同單位需求產出不同報表","每月依賠償日期彙整出報表"], src:"理賠總表", out:"理賠各式報表（6份）" },
-  { id:3,  dept:"店會中心",  grp:"store",   name:"現場作業人員排班",                  type:"AI Agent",        savings:3,   execTime:"90分鐘",  freq:2,  users:1, progress:"新需求", category:"數據及彙整自動化",   input:"1. 需依國定假日及輪休、特休進行排班\n2. 提供條件給AI產出初版輪休預定班", output:"由AI完成輪休班排定同時更新輪班代碼，可直接匯入EIP", steps:["確認國定假日、休息日、特休及最低到班人員","依EIP排定輪休排班日期","全體人員簽名確認","EIP轉出公版格式匯入"], src:"輪休預定班Excel、EIP匯入公版", out:"排班結果Excel" },
-  { id:4,  dept:"店會中心",  grp:"store",   name:"班表合併工時生成",                  type:"AI Agent",        savings:3.5, execTime:"10分鐘",  freq:22, users:1, progress:"新需求", category:"數據及彙整自動化",   input:"1. 需人工維護EIP工時\n2. 提供條件給AI進行個人工時管理", output:"AI依班表產出店會中心每日工時及個人工時彙總表", steps:["人工維護EIP工時與幹部記錄工時比對","轉貼至工時Excel進行工時管理","依工時進行效率分析"], src:"工時Excel", out:"工時彙總Excel" },
-  { id:5,  dept:"店會中心",  grp:"store",   name:"營收袋過刷率分析",                  type:"AI Agent",        savings:7,   execTime:"20分鐘",  freq:22, users:1, progress:"新需求", category:"資料內容提取",       input:"1. 需人工逐一比對各項數據\n2. 透由AI自動比對各項數據", output:"由AI比對完數據後，產生PDA過刷率、未過刷路線、各倉過刷率", steps:["產出當天營收袋返廠查詢及異常紀錄","計算當天營收袋總過刷筆數","比對離島店、空袋，記錄超過3筆路線","比對各倉過刷總筆數","合併3份報表分頁"], src:"MIS-WEB版TDCM640、路線路順檔、店會系統AC.2.5.3", out:"自製報表" },
-  { id:6,  dept:"店會中心",  grp:"store",   name:"異常營收袋紀錄生成",                type:"AI Agent",        savings:11,  execTime:"30分鐘",  freq:22, users:1, progress:"新需求", category:"資料內容提取",       input:"1. 需人工逐一記錄\n2. 透由AI掃描辨識", output:"由AI掃描後匯出Excel報表", steps:["收集現場作業人員異常登記表","依店號序排列後掃描至電腦","AI進行圖檔辨認並轉呈Excel","產生報表"], src:"營收袋異常登記表（紙本掃描）", out:"自製Excel報表" },
+  { id:16, dept:"客服中心",  grp:"cs",      name:"排班小幫手",                        type:"AI Agent",        savings:0.7, execTime:"—",       freq:1,  users:1, progress:"測試中", isNew:true, category:"數據及彙整自動化",   input:"因客服班別較多且複雜，需合法合理排出所需班別", output:"依條件自動產出合法合理的排班結果", steps:["輸入班別需求與限制條件","AI依規則自動進行排班邏輯運算","產出符合規定的排班表"], src:"班別條件與限制清單", out:"排班結果表" },
+  { id:1,  dept:"客服中心",  grp:"cs",      name:"案件分析",                          type:"AI Agent",        savings:7,   execTime:"30分鐘",  freq:30, users:2, progress:"測試中", category:"邏輯檢核與異常分析", input:"1. 案型反應最多問題\n2. 異常是否集中在特定物流中心、路線或店舖？", output:"1. 案型分析（配送、退貨、服務等）\n2. 異常問題排行（Top問題／路線／店舖）", steps:["彙整指定期間內的客服案件資料","將客訴內容進行分類與關鍵字分析","比對歷史數據，找出異常成長或集中","辨識可能的熱點","產出重點說明文字"], src:"客服系統-綜合分析報表(Excel)", out:"客服案型分析資料" },
+  { id:2,  dept:"客服中心",  grp:"cs",      name:"資料整理-理賠彙整報表",              type:"AI Agent",        savings:9,   execTime:"60分鐘",  freq:9,  users:1, progress:"測試中", category:"資料內容提取",       input:"1. 將多張報表彙整成所需報表\n2. 檢核資料正確性\n3. 依提供權責單位產出不同報表", output:"1. 店舖類型賠償彙整表\n2. 各責任歸屬賠償彙整表", steps:["每週檢視報表資料來源正確性","依不同單位需求產出不同報表","每月依賠償日期彙整出報表"], src:"理賠總表", out:"理賠各式報表（6份）" },
+  { id:3,  dept:"店會中心",  grp:"store",   name:"現場作業人員排班",                  type:"AI Agent",        savings:3,   execTime:"90分鐘",  freq:2,  users:1, progress:"測試中", category:"數據及彙整自動化",   input:"1. 需依國定假日及輪休、特休進行排班\n2. 提供條件給AI產出初版輪休預定班", output:"由AI完成輪休班排定同時更新輪班代碼，可直接匯入EIP", steps:["確認國定假日、休息日、特休及最低到班人員","依EIP排定輪休排班日期","全體人員簽名確認","EIP轉出公版格式匯入"], src:"輪休預定班Excel、EIP匯入公版", out:"排班結果Excel" },
+  { id:4,  dept:"店會中心",  grp:"store",   name:"班表合併工時生成",                  type:"AI Agent",        savings:3.5, execTime:"10分鐘",  freq:22, users:1, progress:"測試中", category:"數據及彙整自動化",   input:"1. 需人工維護EIP工時\n2. 提供條件給AI進行個人工時管理", output:"AI依班表產出店會中心每日工時及個人工時彙總表", steps:["人工維護EIP工時與幹部記錄工時比對","轉貼至工時Excel進行工時管理","依工時進行效率分析"], src:"工時Excel", out:"工時彙總Excel" },
+  { id:5,  dept:"店會中心",  grp:"store",   name:"營收袋過刷率分析",                  type:"AI Agent",        savings:7,   execTime:"20分鐘",  freq:22, users:1, progress:"測試中", category:"資料內容提取",       input:"1. 需人工逐一比對各項數據\n2. 透由AI自動比對各項數據", output:"由AI比對完數據後，產生PDA過刷率、未過刷路線、各倉過刷率", steps:["產出當天營收袋返廠查詢及異常紀錄","計算當天營收袋總過刷筆數","比對離島店、空袋，記錄超過3筆路線","比對各倉過刷總筆數","合併3份報表分頁"], src:"MIS-WEB版TDCM640、路線路順檔、店會系統AC.2.5.3", out:"自製報表" },
+  { id:6,  dept:"店會中心",  grp:"store",   name:"異常營收袋紀錄生成",                type:"AI Agent",        savings:11,  execTime:"30分鐘",  freq:22, users:1, progress:"測試中", category:"資料內容提取",       input:"1. 需人工逐一記錄\n2. 透由AI掃描辨識", output:"由AI掃描後匯出Excel報表", steps:["收集現場作業人員異常登記表","依店號序排列後掃描至電腦","AI進行圖檔辨認並轉呈Excel","產生報表"], src:"營收袋異常登記表（紙本掃描）", out:"自製Excel報表" },
   { id:7,  dept:"人資課",    grp:"hr",      name:"加班異常檢核",                       type:"自行開發(前端)",   savings:3,   execTime:"2-3小時", freq:1,  users:1, progress:"測試中", link:"https://sauuo0927-cmyk.github.io/hrhelper/", category:"邏輯檢核與異常分析", input:"實際加班常有申請時數與實際送出有差異，尤其碰到不同班別時段時", output:"檢核出差異錯誤之處", steps:["查詢班別","查詢實際加班時數與時段","比對班別加班開始時間是否有差異"], src:"異常出勤明細表、實際加班明細表", out:"比對差異明細表" },
   { id:8,  dept:"人資課",    grp:"hr",      name:"夜點津貼",                          type:"自行開發(前端)",   savings:2,   execTime:"1-2小時", freq:1,  users:9, progress:"已上線", link:"https://sauuo0927-cmyk.github.io/hrhelper/", category:"數據及彙整自動化",   input:"計算班別在22:00-07:00區間的同仁時數及天數", output:"計算出班別在22:00-07:00的同仁時數及天數\n使用 Power Automate 至 EIP 系統抓取資料", steps:["使用 Power Automate 至 EIP 系統自動抓取出勤資料","讀取員工班別，判斷22:00-07:00區間人員","扣除請假時數、休息日、颱風天","計算每個人的夜點時數及天數","EC驗收課及客服中心計算跨夜天數"], src:"員工出勤表、班別對照表", out:"夜點津貼計算結果" },
   { id:9,  dept:"人資課",    grp:"hr",      name:"人事保證書更新",                    type:"AI Agent",        savings:1,   execTime:"1-2小時", freq:1,  users:1, progress:"已上線", category:"數據及彙整自動化",   input:"人事保證書每三年需更新一次", output:"檢核出員工年資滿3、6、9、12、15、18、21年的名單", steps:["讀取員工名冊裡的到職日欄位","計算後三個月滿3的倍數年資"], src:"員工名冊", out:"人事保證書更新名單" },
@@ -836,7 +776,7 @@ function makeCard(t) {
         <span class="type-badge ${getTypeClass(t.type)}">${t.type.replace("1.","").replace("3.","")}</span>
         ${getProgBadge(t.progress)}
       </div>
-      <div class="card-title">${t.name}</div>
+      <div class="card-title">${t.name}${t.isNew ? '<span class="new-badge">NEW</span>' : ""}</div>
       <div class="card-desc">${(t.output||"").replace(/\n/g,"<br>").slice(0,80)}${(t.output||"").length>80?"…":""}</div>
       <div class="card-meta">
         <span class="meta-chip highlight">⏱ 節省 ${t.savings}H/月</span>
@@ -872,26 +812,12 @@ document.getElementById("header-stats").innerHTML = `
     <div class="stat-label">每月節省<br>總時數</div>
   </div>
   <div class="stat-pill">
-    <div class="stat-num">15</div>
+    <div class="stat-num">16</div>
     <div class="stat-label">任務<br>總數</div>
   </div>`;
 
-// Savings bar
+// Savings bar (maxSave needed for summary table)
 const maxSave = Math.max(...ALL_TASKS.map(t=>t.savings));
-const colors  = ["#2563eb","#7c3aed","#059669","#d97706","#0891b2","#ea580c","#be185d","#16a34a","#dc2626","#4f46e5","#0369a1","#15803d","#9333ea","#b45309","#6d28d9"];
-
-document.getElementById("savings-chart").innerHTML = ALL_TASKS.map((t,i)=>`
-  <div class="hbar-item">
-    <div class="hbar-label">
-      <span>${t.dept} · ${t.name} ${t.progress==="已上線"?"🟢":t.progress==="測試中"?"🟡":"🔵"}</span>
-      <span style="color:${colors[i%colors.length]};font-family:Oxanium,sans-serif;font-weight:700">${t.savings}H</span>
-    </div>
-    <div class="hbar-track"><div class="hbar-fill" style="width:${(t.savings/maxSave)*100}%;background:${colors[i%colors.length]}"></div></div>
-  </div>`).join("");
-
-// Top 6
-const sorted = [...ALL_TASKS].sort((a,b)=>b.savings-a.savings).slice(0,6);
-document.getElementById("top-cards").innerHTML = sorted.map(makeCard).join("");
 
 // Legend html
 const legHtml = `
@@ -900,28 +826,47 @@ const legHtml = `
   ${getProgBadge("測試中")}&nbsp;<span style="font-size:14px;color:var(--text-muted)">測試中</span>&nbsp;&nbsp;
   ${getProgBadge("新需求")}&nbsp;<span style="font-size:14px;color:var(--text-muted)">新需求</span>`;
 
-document.getElementById("svc-legend").innerHTML = legHtml;
-document.getElementById("hr-legend").innerHTML  = legHtml;
+document.getElementById("tasks-legend").innerHTML = legHtml;
 
 document.getElementById("cs-cards").innerHTML      = ALL_TASKS.filter(t=>t.grp==="cs").map(makeCard).join("");
 document.getElementById("store-cards").innerHTML   = ALL_TASKS.filter(t=>t.grp==="store").map(makeCard).join("");
 document.getElementById("hr-cards").innerHTML      = ALL_TASKS.filter(t=>t.grp==="hr").map(makeCard).join("");
 document.getElementById("finance-cards").innerHTML = ALL_TASKS.filter(t=>t.grp==="finance").map(makeCard).join("");
 
+// 本週進度對照 (從工作進度頁擷取)
+const WEEKLY_NOTES = {
+  "排班小幫手":         "建構基本提示詞、模組測試",
+  "案件分析":           "完成Agent建立，進行調整與測試",
+  "資料整理-理賠彙整報表": "完成 Agent 建立，進行調整與測試",
+  "現場作業人員排班":    "調整與測試中",
+  "班表合併工時生成":    "已測試完成，待主管核准後上線",
+  "營收袋過刷率分析":    "詢問顧問後可執行，需調整提示詞",
+  "異常營收袋紀錄生成":  "已測試完成，需調整作業人員書寫字體",
+  "加班異常檢核":        "測試系統之產出資料正確性",
+  "夜點津貼":            "已上線",
+  "人事保證書更新":      "已上線",
+  "全寵家匯款TXT":       "測試中",
+  "暫收款-理賠開立明細彙整": "測試中",
+  "關係人明細":          "產出欄位確認中",
+  "營業稅進項憑證與分類帳交叉核對分析": "測試中",
+  "全寵家進項發票掃瞄登打": "測試中",
+  "部門損益實績自動化拆分與明細產出": "測試計算邏輯",
+};
+
 // Summary table with sorting
 let sortCol = null, sortDir = 1;
 
-const COL_KEYS = ["dept","name","type","progress","category","savings","freq"];
-const COL_LABELS = ["部門","任務名稱","開發方式","進度","用途分類","每月節省時數","執行頻率"];
+const COL_KEYS   = ["dept","name","type","progress","savings","freq","weeklyNote"];
+const COL_LABELS = ["部門","任務名稱","開發方式","進度","每月節省時數","執行頻率","本週進度"];
 
-// Sort order maps for badge columns
 const PROG_ORDER = {"已上線":0,"測試中":1,"新需求":2};
 
 function renderSummaryTable() {
   let data = [...ALL_TASKS];
   if (sortCol !== null) {
     data.sort((a,b) => {
-      let av = a[COL_KEYS[sortCol]], bv = b[COL_KEYS[sortCol]];
+      let av = sortCol===6 ? (WEEKLY_NOTES[a.name]||"") : a[COL_KEYS[sortCol]];
+      let bv = sortCol===6 ? (WEEKLY_NOTES[b.name]||"") : b[COL_KEYS[sortCol]];
       if (sortCol === 3) { av = PROG_ORDER[av]??9; bv = PROG_ORDER[bv]??9; }
       if (typeof av === "number") return (av - bv) * sortDir;
       return String(av).localeCompare(String(bv), "zh-TW") * sortDir;
@@ -938,12 +883,12 @@ function renderSummaryTable() {
   const tbody = data.map(t => `
     <tr class="${t.progress==="已上線"?"row-online":""}" onclick="openModal(${t.id})" style="cursor:pointer">
       <td style="font-size:13px;color:var(--text-muted)">${t.dept}</td>
-      <td>${t.name}</td>
+      <td>${t.name}${t.isNew ? '<span class="new-badge">NEW</span>' : ""}</td>
       <td><span class="type-badge ${getTypeClass(t.type)}" style="margin:0">${t.type.replace("1.","").replace("3.","")}</span></td>
       <td>${getProgBadge(t.progress)}</td>
-      <td><span class="cat-badge ${getCatClass(t.category)}">${t.category}</span></td>
       <td><div class="savings-bar"><div class="bar-bg"><div class="bar-fill" style="width:${Math.round((t.savings/maxSave)*100)}%"></div></div><span class="bar-val">${t.savings}H</span></div></td>
       <td style="color:var(--text-dim)">${t.freq}次/月</td>
+      <td style="color:var(--text-dim);font-size:13px">${WEEKLY_NOTES[t.name]||"—"}</td>
     </tr>`).join("");
 
   document.getElementById("summary-tbl").innerHTML =
