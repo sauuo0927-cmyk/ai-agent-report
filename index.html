@@ -91,7 +91,8 @@
 
   .subtitle { font-size: 17px; color: var(--text-dim); margin-top: 8px; font-weight: 300; }
 
-  .stats-row { display: flex; gap: 16px; margin-top: 36px; flex-wrap: wrap; }
+  .stats-row { display: flex; flex-direction: column; gap: 12px; margin-top: 36px; }
+  .stats-row-line { display: flex; gap: 16px; flex-wrap: wrap; }
 
   .stat-pill {
     display: flex; align-items: center; gap: 10px;
@@ -795,25 +796,29 @@ const newCnt     = ALL_TASKS.filter(t=>t.progress==="新需求").length;
 const totalSave  = ALL_TASKS.reduce((a,t)=>a+t.savings,0);
 
 document.getElementById("header-stats").innerHTML = `
-  <div class="stat-pill online-pill">
-    <div class="stat-num" style="color:#059669">${onlineCnt}</div>
-    <div class="stat-label">已上線<br>項目</div>
+  <div class="stats-row-line">
+    <div class="stat-pill online-pill">
+      <div class="stat-num" style="color:#059669">${onlineCnt}</div>
+      <div class="stat-label">已上線<br>項目</div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-num" style="color:#d97706">${testingCnt}</div>
+      <div class="stat-label">測試中<br>項目</div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-num" style="color:#7c3aed">${newCnt}</div>
+      <div class="stat-label">新需求<br>項目</div>
+    </div>
   </div>
-  <div class="stat-pill">
-    <div class="stat-num" style="color:#d97706">${testingCnt}</div>
-    <div class="stat-label">測試中<br>項目</div>
-  </div>
-  <div class="stat-pill">
-    <div class="stat-num" style="color:#7c3aed">${newCnt}</div>
-    <div class="stat-label">新需求<br>項目</div>
-  </div>
-  <div class="stat-pill">
-    <div class="stat-num" style="color:#059669">${totalSave}H</div>
-    <div class="stat-label">每月節省<br>總時數</div>
-  </div>
-  <div class="stat-pill">
-    <div class="stat-num">16</div>
-    <div class="stat-label">任務<br>總數</div>
+  <div class="stats-row-line">
+    <div class="stat-pill">
+      <div class="stat-num" style="color:#059669">${totalSave}H</div>
+      <div class="stat-label">每月節省<br>總時數</div>
+    </div>
+    <div class="stat-pill">
+      <div class="stat-num" style="color:#2563eb">${(totalSave*12).toFixed(1)}H</div>
+      <div class="stat-label">每年節省<br>總時數</div>
+    </div>
   </div>`;
 
 // Savings bar (maxSave needed for summary table)
