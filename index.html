@@ -856,8 +856,8 @@ const WEEKLY_NOTES = {
 // Summary table with sorting
 let sortCol = null, sortDir = 1;
 
-const COL_KEYS   = ["dept","name","type","progress","savings","freq","weeklyNote"];
-const COL_LABELS = ["部門","任務名稱","開發方式","進度","每月節省時數","執行頻率","本週進度"];
+const COL_KEYS   = ["dept","name","type","progress","savings","yearlySavings","weeklyNote"];
+const COL_LABELS = ["部門","任務名稱","開發方式","進度","每月節省時數","每年節省時數","本週進度"];
 
 const PROG_ORDER = {"已上線":0,"測試中":1,"新需求":2};
 
@@ -865,8 +865,8 @@ function renderSummaryTable() {
   let data = [...ALL_TASKS];
   if (sortCol !== null) {
     data.sort((a,b) => {
-      let av = sortCol===6 ? (WEEKLY_NOTES[a.name]||"") : a[COL_KEYS[sortCol]];
-      let bv = sortCol===6 ? (WEEKLY_NOTES[b.name]||"") : b[COL_KEYS[sortCol]];
+      let av = sortCol===6 ? (WEEKLY_NOTES[a.name]||"") : sortCol===5 ? a.savings*12 : a[COL_KEYS[sortCol]];
+      let bv = sortCol===6 ? (WEEKLY_NOTES[b.name]||"") : sortCol===5 ? b.savings*12 : b[COL_KEYS[sortCol]];
       if (sortCol === 3) { av = PROG_ORDER[av]??9; bv = PROG_ORDER[bv]??9; }
       if (typeof av === "number") return (av - bv) * sortDir;
       return String(av).localeCompare(String(bv), "zh-TW") * sortDir;
@@ -887,7 +887,7 @@ function renderSummaryTable() {
       <td><span class="type-badge ${getTypeClass(t.type)}" style="margin:0">${t.type.replace("1.","").replace("3.","")}</span></td>
       <td>${getProgBadge(t.progress)}</td>
       <td><div class="savings-bar"><div class="bar-bg"><div class="bar-fill" style="width:${Math.round((t.savings/maxSave)*100)}%"></div></div><span class="bar-val">${t.savings}H</span></div></td>
-      <td style="color:var(--text-dim)">${t.freq}次/月</td>
+      <td style="color:var(--text-dim);font-family:'Oxanium',sans-serif;font-weight:600">${(t.savings*12).toFixed(1)}H</td>
       <td style="color:var(--text-dim);font-size:13px">${WEEKLY_NOTES[t.name]||"—"}</td>
     </tr>`).join("");
 
