@@ -151,11 +151,61 @@
 
   /* PDF print styles */
   @media print {
-    .nav-tabs, .pdf-btn, footer { display: none !important; }
-    header { padding: 20px 30px 16px !important; }
-    main   { padding: 20px 30px !important; }
-    .card  { break-inside: avoid; }
-    .modal-overlay { display: none !important; }
+    @page { size: A4 landscape; margin: 12mm 14mm; }
+
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+    body { background: #ffffff !important; }
+    body::before { display: none !important; }
+
+    .nav-tabs, .pdf-btn, footer, .modal-overlay { display: none !important; }
+
+    header {
+      padding: 14px 20px 10px !important;
+      border-bottom: 1px solid #dde3ef !important;
+    }
+
+    header h1 { font-size: 26px !important; }
+    .subtitle  { font-size: 13px !important; }
+    .stats-row { margin-top: 12px !important; gap: 8px !important; }
+    .stat-pill { padding: 6px 14px !important; }
+    .stat-num  { font-size: 20px !important; }
+    .stat-label{ font-size: 12px !important; }
+
+    main { padding: 14px 20px !important; max-width: 100% !important; }
+
+    /* Each section on its own page */
+    .section {
+      display: block !important;
+      page-break-before: always;
+      break-before: page;
+    }
+
+    .section:first-of-type {
+      page-break-before: auto;
+      break-before: auto;
+    }
+
+    /* Prevent cards breaking mid-content */
+    .card, .chart-card, .progress-card { break-inside: avoid; }
+
+    /* Scale down font for cards to fit landscape page */
+    .card-title  { font-size: 14px !important; }
+    .card-desc   { font-size: 12px !important; }
+    .meta-chip, .cat-badge, .type-badge, .prog-badge { font-size: 10px !important; }
+    .section-title { font-size: 18px !important; }
+    .section-divider { margin: 16px 0 12px !important; }
+    .cards-grid { gap: 12px !important; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important; }
+
+    /* Summary table */
+    .summary-table { font-size: 11px !important; }
+    .summary-table th, .summary-table td { padding: 8px 10px !important; }
+
+    /* Progress cards */
+    .progress-cards { grid-template-columns: repeat(3, 1fr) !important; gap: 14px !important; }
+    .progress-text  { font-size: 12px !important; }
+    .progress-block-label { font-size: 10px !important; }
+    .person-name { font-size: 15px !important; }
   }
 
   .nav-tab {
@@ -1003,26 +1053,30 @@ function closeModalBtn() {
   document.getElementById("modal-overlay").classList.remove("open");
 }
 function exportPDF() {
-  // Show all sections temporarily for full print
   const sections = document.querySelectorAll(".section");
-  const navTabs  = document.querySelectorAll(".nav-tab");
-  const hidden   = [];
+  const nav      = document.querySelector(".nav-tabs");
+  const wasActive = [];
 
+  // Show all sections
   sections.forEach(s => {
-    if (!s.classList.contains("active")) {
-      s.style.display = "block";
-      hidden.push(s);
-    }
+    wasActive.push(s.classList.contains("active"));
+    s.style.display = "block";
   });
 
-  // Temporarily hide nav & PDF btn
-  document.querySelector(".nav-tabs").style.display = "none";
+  // Hide nav bar
+  nav.style.display = "none";
 
-  window.print();
-
-  // Restore
-  hidden.forEach(s => { s.style.display = ""; });
-  document.querySelector(".nav-tabs").style.display = "";
+  // After paint, print then restore
+  setTimeout(() => {
+    window.print();
+    setTimeout(() => {
+      sections.forEach((s, i) => {
+        s.style.display = wasActive[i] ? "block" : "";
+        if (!wasActive[i]) s.classList.remove("active");
+      });
+      nav.style.display = "";
+    }, 500);
+  }, 100);
 }
 </script>
 </body>
