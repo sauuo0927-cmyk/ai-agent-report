@@ -1006,78 +1006,159 @@ function closeModalBtn() {
 }
 async function exportPDF() {
   const btn = document.querySelector(".pdf-btn");
-  btn.textContent = "⏳ 產生中...";
+  btn.innerHTML = "⏳ 產生中...";
   btn.disabled = true;
 
   const { jsPDF } = window.jspdf;
-  // A4 landscape: 297 x 210 mm
   const pdf = new jsPDF({ orientation: "landscape", unit: "mm", format: "a4" });
   const PW = 297, PH = 210;
 
-  const sectionIds = ["tab-tasks", "tab-summary", "tab-progress"];
-  const sectionLabels = ["基本需求說明", "專案統計", "工作進度"];
-
-  // Temporarily show all sections & hide nav
-  const nav = document.querySelector(".nav-tabs");
-  const footer = document.querySelector("footer");
-  const modalOverlay = document.getElementById("modal-overlay");
-  const allSections = document.querySelectorAll(".section");
-
-  nav.style.display = "none";
-  if (footer) footer.style.display = "none";
-  if (modalOverlay) modalOverlay.style.display = "none";
-  allSections.forEach(s => { s.style.display = "block"; });
-
-  // Capture header once (shared across pages)
-  const header = document.querySelector("header");
-  const headerCanvas = await html2canvas(header, {
-    scale: 1.5, useCORS: true, backgroundColor: "#f5f7fb",
-    width: header.scrollWidth, height: header.scrollHeight
-  });
-  const headerH = (headerCanvas.height / headerCanvas.width) * PW;
-
-  for (let i = 0; i < sectionIds.length; i++) {
-    const section = document.getElementById(sectionIds[i]);
-
-    // Scroll section fully into view and measure real height
-    section.style.display = "block";
-
-    const canvas = await html2canvas(section, {
-      scale: 1.5,
+  // ── helper: capture a DOM element to a PDF page ──────────────────
+  async function capturePage(el, addNewPage) {
+    const canvas = await html2canvas(el, {
+      scale: 2,
       useCORS: true,
       backgroundColor: "#f5f7fb",
-      width: section.scrollWidth,
-      height: section.scrollHeight,
-      windowWidth: section.scrollWidth,
+      width: el.scrollWidth,
+      height: el.scrollHeight,
+      windowWidth: el.scrollWidth,
     });
-
-    if (i > 0) pdf.addPage();
-
-    // Add header
-    pdf.addImage(headerCanvas.toDataURL("image/jpeg", 0.9), "JPEG", 0, 0, PW, headerH);
-
-    // Add section content scaled to remaining height
-    const contentAreaH = PH - headerH - 2;
-    const contentAspect = canvas.height / canvas.width;
-    const contentH = Math.min(contentAreaH, PW * contentAspect);
-
-    pdf.addImage(canvas.toDataURL("image/jpeg", 0.9), "JPEG", 0, headerH + 2, PW, contentH);
+    if (addNewPage) pdf.addPage();
+    const aspect = canvas.height / canvas.width;
+    const imgH = Math.min(PH, PW * aspect);
+    pdf.addImage(canvas.toDataURL("image/jpeg", 0.92), "JPEG", 0, 0, PW, imgH);
   }
 
-  // Restore
-  allSections.forEach(s => { s.style.display = ""; });
-  nav.style.display = "";
-  if (footer) footer.style.display = "";
-  if (modalOverlay) modalOverlay.style.display = "";
+  // ── Build a self-contained print wrapper ──────────────────────────
+  function makePrintWrap(innerHTML) {
+    const wrap = document.createElement("div");
+    wrap.style.cssText = `
+      position:fixed; left:-9999px; top:0;
+      width:1122px; background:#f5f7fb;
+      padding:24px 32px; box-sizing:border-box;
+      font-family:'Noto Sans TC',sans-serif; font-size:13px;
+      color:#111827;
+    `;
+    wrap.innerHTML = innerHTML;
+    document.body.appendChild(wrap);
+    return wrap;
+  }
 
-  // Restore active tab
+  // ── Grab live rendered HTML from key DOM nodes ────────────────────
+  function nodeHTML(id) {
+    const el = document.getElementById(id);
+    if (!el) return "";
+    // Ensure it's visible so html2canvas picks it up
+    el.style.display = "block";
+    return el.outerHTML;
+  }
+
+  function dividerHTML(label) {
+    return `<div style="display:flex;align-items:center;gap:12px;margin:20px 0 14px;">
+      <span style="font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9ca3af;white-space:nowrap">${label}</span>
+      <div style="flex:1;height:1px;background:#dde3ef"></div>
+    </div>`;
+  }
+
+  // Force all sections visible
+  const allSections = document.querySelectorAll(".section");
+  const nav    = document.querySelector(".nav-tabs");
+  const footer = document.querySelector("footer");
+  const modal  = document.getElementById("modal-overlay");
+  allSections.forEach(s => { s.style.display = "block"; });
+  nav.style.display    = "none";
+  if (footer) footer.style.display = "none";
+  if (modal)  modal.style.display  = "none";
+
+  // Wait for layout to settle
+  await new Promise(r => setTimeout(r, 400));
+
+  // ── PAGE 1: Header (title + stats) ────────────────────────────────
+  const headerEl = document.querySelector("header");
+  const p1 = makePrintWrap(headerEl.outerHTML);
+  await capturePage(p1, false);
+  document.body.removeChild(p1);
+
+  // ── PAGE 2: 基本需求說明 – 客服中心 + 店會中心 ──────────────────
+  const p2Html = `
+    ${dividerHTML("基本需求說明 · 綜合服務部 · 客服中心")}
+    ${document.getElementById("cs-cards").outerHTML}
+    ${dividerHTML("基本需求說明 · 綜合服務部 · 店會中心")}
+    ${document.getElementById("store-cards").outerHTML}`;
+  const p2 = makePrintWrap(p2Html);
+  await capturePage(p2, true);
+  document.body.removeChild(p2);
+
+  // ── PAGE 3: 基本需求說明 – 人資課 + 財會課 ──────────────────────
+  const p3Html = `
+    ${dividerHTML("基本需求說明 · 人資財會部 · 人資課")}
+    ${document.getElementById("hr-cards").outerHTML}
+    ${dividerHTML("基本需求說明 · 人資財會部 · 財會課")}
+    ${document.getElementById("finance-cards").outerHTML}`;
+  const p3 = makePrintWrap(p3Html);
+  await capturePage(p3, true);
+  document.body.removeChild(p3);
+
+  // ── PAGE 4 & 5: 專案統計 – split by dept group ───────────────────
+  // We'll snapshot the full summary table but filter rows per group
+  const tbl = document.getElementById("summary-tbl");
+  const thead = tbl.querySelector("thead").outerHTML;
+
+  function tableRows(grps) {
+    return Array.from(tbl.querySelectorAll("tbody tr"))
+      .filter(tr => {
+        const deptCell = tr.querySelector("td");
+        if (!deptCell) return false;
+        const txt = deptCell.textContent.trim();
+        return grps.some(g => txt.includes(g));
+      })
+      .map(tr => tr.outerHTML).join("");
+  }
+
+  const tblStyle = `width:100%;border-collapse:separate;border-spacing:0;font-size:12px;`;
+  const thStyle  = `padding:10px 12px;text-align:left;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#9ca3af;border-bottom:1px solid #dde3ef;background:#f9fafb;`;
+  const tdStyle  = `padding:12px;border-bottom:1px solid rgba(221,227,239,0.5);color:#4b5563;vertical-align:middle;`;
+
+  // Re-style thead for print
+  function styledTable(rowsHtml) {
+    const styledThead = thead.replace(/<th /g, `<th style="${thStyle}" `).replace(/onclick="[^"]*"/g,"");
+    const styledRows  = rowsHtml.replace(/<td /g, `<td style="${tdStyle}" `).replace(/onclick="[^"]*" style="cursor:pointer"/g,"");
+    return `<table style="${tblStyle}">${styledThead}<tbody>${styledRows}</tbody></table>`;
+  }
+
+  const p4Html = `
+    ${dividerHTML("專案統計 · 綜合服務部")}
+    ${styledTable(tableRows(["客服中心","店會中心"]))}`;
+  const p4 = makePrintWrap(p4Html);
+  await capturePage(p4, true);
+  document.body.removeChild(p4);
+
+  const p5Html = `
+    ${dividerHTML("專案統計 · 人資財會部")}
+    ${styledTable(tableRows(["人資課","財會課"]))}`;
+  const p5 = makePrintWrap(p5Html);
+  await capturePage(p5, true);
+  document.body.removeChild(p5);
+
+  // ── PAGE 6: 工作進度 ──────────────────────────────────────────────
+  const progressSection = document.getElementById("tab-progress");
+  const p6 = makePrintWrap(progressSection.innerHTML);
+  await capturePage(p6, true);
+  document.body.removeChild(p6);
+
+  // ── Restore ────────────────────────────────────────────────────────
+  allSections.forEach(s => { s.style.display = ""; });
+  nav.style.display    = "";
+  if (footer) footer.style.display = "";
+  if (modal)  modal.style.display  = "";
+  // Re-apply active only to the active section
   document.querySelectorAll(".section").forEach(s => {
     if (!s.classList.contains("active")) s.style.display = "";
   });
 
   pdf.save("AI_AGENT測試進度報告.pdf");
 
-  btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg>匯出 PDF`;
+  btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><polyline points="9 15 12 18 15 15"/></svg> 匯出 PDF`;
   btn.disabled = false;
 }
 </script>
