@@ -28,6 +28,9 @@
     --new-color: #7c3aed;
     --new-bg: #f5f3ff;
     --new-border: #c4b5fd;
+    --eval-color: #0891b2;
+    --eval-bg: #ecfeff;
+    --eval-border: #67e8f9;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -163,6 +166,7 @@
 
   .prog-testing { color: var(--testing-color); background: var(--testing-bg); border: 1px solid var(--testing-border); }
   .prog-new     { color: var(--new-color);     background: var(--new-bg);     border: 1px solid var(--new-border); }
+  .prog-eval    { color: var(--eval-color);    background: var(--eval-bg);    border: 1px solid var(--eval-border); }
 
   /* Legend */
   .progress-legend {
@@ -583,7 +587,7 @@
   <div class="section-header">
     <div class="section-icon" style="background:rgba(37,99,235,0.08)">📋</div>
     <div class="section-title">基本需求說明</div>
-    <span class="section-count">16 項任務</span>
+    <span class="section-count">17 項任務</span>
   </div>
   <div class="progress-legend" id="tasks-legend"></div>
 
@@ -738,6 +742,7 @@ const ALL_TASKS = [
   { id:4,  dept:"店會中心",  grp:"store",   name:"班表合併工時生成",                  type:"AI Agent",        savings:1.8, execTime:"10分鐘",  freq:22, users:1, progress:"測試中", category:"數據及彙整自動化",   input:"1. 需人工維護EIP工時\n2. 提供條件給AI進行個人工時管理", output:"AI依班表產出店會中心每日工時及個人工時彙總表", steps:["人工維護EIP工時與幹部記錄工時比對","轉貼至工時Excel進行工時管理","依工時進行效率分析"], src:"工時Excel", out:"工時彙總Excel" },
   { id:5,  dept:"店會中心",  grp:"store",   name:"營收袋過刷率分析",                  type:"AI Agent",        savings:5,   execTime:"20分鐘",  freq:22, users:1, progress:"測試中", category:"資料內容提取",       input:"1. 需人工逐一比對各項數據\n2. 透由AI自動比對各項數據", output:"由AI比對完數據後，產生PDA過刷率、未過刷路線、各倉過刷率", steps:["產出當天營收袋返廠查詢及異常紀錄","計算當天營收袋總過刷筆數","比對離島店、空袋，記錄超過3筆路線","比對各倉過刷總筆數","合併3份報表分頁"], src:"MIS-WEB版TDCM640、路線路順檔、店會系統AC.2.5.3", out:"自製報表" },
   { id:6,  dept:"店會中心",  grp:"store",   name:"異常營收袋紀錄生成",                type:"AI Agent",        savings:6.3,  execTime:"30分鐘",  freq:22, users:1, progress:"測試中", category:"資料內容提取",       input:"1. 需人工逐一記錄\n2. 透由AI掃描辨識", output:"由AI掃描後匯出Excel報表", steps:["收集現場作業人員異常登記表","依店號序排列後掃描至電腦","AI進行圖檔辨認並轉呈Excel","產生報表"], src:"營收袋異常登記表（紙本掃描）", out:"自製Excel報表" },
+  { id:17, dept:"店會中心",  grp:"store",   name:"停車單單據辨識",                    type:"AI Agent",        savings:5,    execTime:"—",       freq:1,  users:1, progress:"評估中", category:"資料內容提取",       input:"停車單開立後，需複印停車單再將複印資料黏貼在通知單", output:"AI辨識並產出圖檔，串接店會系統後，直接下檔到店舖", steps:["AI辨識停車單圖檔內容","產出數位化圖檔","串接店會系統","直接下檔至店舖，取代人工複印黏貼作業"], src:"停車單圖檔", out:"系統下檔至店舖之電子通知單" },
   { id:7,  dept:"人資課",    grp:"hr",      name:"加班異常檢核",                       type:"自行開發(前端)",   savings:3,   execTime:"2-3小時", freq:1,  users:1, progress:"測試中", link:"https://sauuo0927-cmyk.github.io/hrhelper/", category:"邏輯檢核與異常分析", input:"實際加班常有申請時數與實際送出有差異，尤其碰到不同班別時段時", output:"檢核出差異錯誤之處", steps:["查詢班別","查詢實際加班時數與時段","比對班別加班開始時間是否有差異"], src:"異常出勤明細表、實際加班明細表", out:"比對差異明細表" },
   { id:8,  dept:"人資課",    grp:"hr",      name:"夜點津貼",                          type:"自行開發(前端)",   savings:2,   execTime:"1-2小時", freq:1,  users:9, progress:"已上線", link:"https://sauuo0927-cmyk.github.io/hrhelper/", category:"數據及彙整自動化",   input:"計算班別在22:00-07:00區間的同仁時數及天數", output:"計算出班別在22:00-07:00的同仁時數及天數\n使用 Power Automate 至 EIP 系統抓取資料", steps:["使用 Power Automate 至 EIP 系統自動抓取出勤資料","讀取員工班別，判斷22:00-07:00區間人員","扣除請假時數、休息日、颱風天","計算每個人的夜點時數及天數","EC驗收課及客服中心計算跨夜天數"], src:"員工出勤表、班別對照表", out:"夜點津貼計算結果" },
   { id:9,  dept:"人資課",    grp:"hr",      name:"人事保證書更新",                    type:"AI Agent",        savings:1,   execTime:"1-2小時", freq:1,  users:1, progress:"已上線", category:"數據及彙整自動化",   input:"人事保證書每三年需更新一次", output:"檢核出員工年資滿3、6、9、12、15、18、21年的名單", steps:["讀取員工名冊裡的到職日欄位","計算後三個月滿3的倍數年資"], src:"員工名冊", out:"人事保證書更新名單" },
@@ -760,6 +765,7 @@ function getTypeClass(t) { return t.includes("前端") ? "type-frontend" : "type
 function getProgBadge(p) {
   if (p === "已上線") return `<span class="prog-badge prog-online">🟢 已上線</span>`;
   if (p === "測試中") return `<span class="prog-badge prog-testing">🟡 測試中</span>`;
+  if (p === "評估中") return `<span class="prog-badge prog-eval">🔷 評估中</span>`;
   return `<span class="prog-badge prog-new">🔵 新需求</span>`;
 }
 
@@ -793,6 +799,7 @@ function makeCard(t) {
 const onlineCnt  = ALL_TASKS.filter(t=>t.progress==="已上線").length;
 const testingCnt = ALL_TASKS.filter(t=>t.progress==="測試中").length;
 const newCnt     = ALL_TASKS.filter(t=>t.progress==="新需求").length;
+const evalCnt    = ALL_TASKS.filter(t=>t.progress==="評估中").length;
 const totalSave  = ALL_TASKS.reduce((a,t)=>a+t.savings,0);
 
 document.getElementById("header-stats").innerHTML = `
@@ -806,13 +813,13 @@ document.getElementById("header-stats").innerHTML = `
       <div class="stat-label">測試中<br>項目</div>
     </div>
     <div class="stat-pill">
-      <div class="stat-num" style="color:#7c3aed">${newCnt}</div>
-      <div class="stat-label">新需求<br>項目</div>
+      <div class="stat-num" style="color:#0891b2">${evalCnt}</div>
+      <div class="stat-label">評估中<br>項目</div>
     </div>
   </div>
   <div class="stats-row-line">
     <div class="stat-pill">
-      <div class="stat-num" style="color:#059669">${totalSave}H</div>
+      <div class="stat-num" style="color:#059669">${totalSave.toFixed(1)}H</div>
       <div class="stat-label">每月節省<br>總時數</div>
     </div>
     <div class="stat-pill">
@@ -829,6 +836,7 @@ const legHtml = `
   <span style="font-size:14px;font-weight:600;color:var(--text-muted)">進度：</span>
   ${getProgBadge("已上線")}&nbsp;<span style="font-size:14px;color:var(--text-muted)">已上線</span>&nbsp;&nbsp;
   ${getProgBadge("測試中")}&nbsp;<span style="font-size:14px;color:var(--text-muted)">測試中</span>&nbsp;&nbsp;
+  ${getProgBadge("評估中")}&nbsp;<span style="font-size:14px;color:var(--text-muted)">評估中</span>&nbsp;&nbsp;
   ${getProgBadge("新需求")}&nbsp;<span style="font-size:14px;color:var(--text-muted)">新需求</span>`;
 
 document.getElementById("tasks-legend").innerHTML = legHtml;
@@ -840,7 +848,7 @@ document.getElementById("finance-cards").innerHTML = ALL_TASKS.filter(t=>t.grp==
 
 // 本週進度對照 (從工作進度頁擷取)
 const WEEKLY_NOTES = {
-  "排班小幫手":         "建構基本提示詞、模組測試",
+  "停車單單據辨識":      "Agenthub顧問回覆目前無法執行，需朝其他方向進行",
   "案件分析":           "完成Agent建立，進行調整與測試",
   "資料整理-理賠彙整報表": "完成 Agent 建立，進行調整與測試",
   "現場作業人員排班":    "調整與測試中",
@@ -864,7 +872,7 @@ let sortCol = null, sortDir = 1;
 const COL_KEYS   = ["dept","name","type","progress","savings","yearlySavings","weeklyNote"];
 const COL_LABELS = ["部門","任務名稱","開發方式","進度","每月節省時數","每年節省時數","本週進度"];
 
-const PROG_ORDER = {"已上線":0,"測試中":1,"新需求":2};
+const PROG_ORDER = {"已上線":0,"測試中":1,"評估中":2,"新需求":3};
 
 function renderSummaryTable() {
   let data = [...ALL_TASKS];
