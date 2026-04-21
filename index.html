@@ -595,7 +595,7 @@
     to   { transform: scale(1);   opacity: 1; }
   }
 </style>
-<!-- 部署時間: 2026-04-21 00:54:21 -->
+<!-- 部署: 2026-04-21 01:13:25 -->
 </head>
 <body>
 
@@ -787,7 +787,7 @@ const ALL_TASKS = [
   { id:5,  dept:"店會中心",  grp:"store",   name:"營收袋過刷率分析",                  type:"AI Agent",        savings:5,   execTime:"20分鐘",  freq:22, users:1, progress:"測試中", category:"資料內容提取",       input:"1. 需人工逐一比對各項數據\n2. 透由AI自動比對各項數據", output:"由AI比對完數據後，產生PDA過刷率、未過刷路線、各倉過刷率", steps:["產出當天營收袋返廠查詢及異常紀錄","計算當天營收袋總過刷筆數","比對離島店、空袋，記錄超過3筆路線","比對各倉過刷總筆數","合併3份報表分頁"], src:"MIS-WEB版TDCM640、路線路順檔、店會系統AC.2.5.3", out:"自製報表" },
   { id:6,  dept:"店會中心",  grp:"store",   name:"異常營收袋紀錄生成",                type:"AI Agent",        savings:6.3,  execTime:"30分鐘",  freq:22, users:1, progress:"測試中", category:"資料內容提取",       input:"1. 需人工逐一記錄\n2. 透由AI掃描辨識", output:"由AI掃描後匯出Excel報表", steps:["收集現場作業人員異常登記表","依店號序排列後掃描至電腦","AI進行圖檔辨認並轉呈Excel","產生報表"], src:"營收袋異常登記表（紙本掃描）", out:"自製Excel報表" },
   { id:17, dept:"店會中心",  grp:"store",   name:"停車單單據辨識",                    type:"AI Agent",        savings:5,    execTime:"—",       freq:1,  users:1, progress:"評估中", category:"資料內容提取",       input:"停車單開立後，需複印停車單再將複印資料黏貼在通知單", output:"AI辨識並產出圖檔，串接店會系統後，直接下檔到店舖", steps:["AI辨識停車單圖檔內容","產出數位化圖檔","串接店會系統","直接下檔至店舖，取代人工複印黏貼作業"], src:"停車單圖檔", out:"系統下檔至店舖之電子通知單" },
-  { id:18, dept:"人資課",    grp:"hr",      name:"預計到離職通知",                    type:"自行開發(前端)",   savings:1,   execTime:"—",       freq:4,  users:1, progress:"測試中", isNew:true, category:"數據及彙整自動化",   input:"每週四需提供預計到離職名單給相關人員，目前以人工篩選名單，再MAIL給相關人員", output:"使用 Power Automate 雲端版自動篩選預計到離職名單，排程於週四下午 5 點寄送 Office 365 Outlook 通知信", steps:["使用 Power Automate 雲端版設計自動化流程","讀取 OneDrive 到離職資料 Excel 檔","篩選預計到離職的名單","排程於每週四下午 5 點自動寄信（Office 365 Outlook）"], src:"OneDrive 到離職資料 Excel 檔", out:"每週四自動寄出預計到離職名單通知信" },
+  { id:18, dept:"人資課",    grp:"hr",      name:"預計到離職通知",                    type:"自行開發(前端)",   savings:1,   execTime:"—",       freq:4,  users:1, progress:"已上線", isNew:true, category:"數據及彙整自動化",   input:"每週四需提供預計到離職名單給相關人員，目前以人工篩選名單，再MAIL給相關人員", output:"使用 Power Automate 雲端版自動篩選預計到離職名單，排程於週四下午 5 點寄送 Office 365 Outlook 通知信", steps:["使用 Power Automate 雲端版設計自動化流程","讀取 OneDrive 到離職資料 Excel 檔","篩選預計到離職的名單","排程於每週四下午 5 點自動寄信（Office 365 Outlook）"], src:"OneDrive 到離職資料 Excel 檔", out:"每週四自動寄出預計到離職名單通知信" },
   { id:7,  dept:"人資課",    grp:"hr",      name:"加班異常檢核",                       type:"自行開發(前端)",   savings:3,   execTime:"2-3小時", freq:1,  users:1, progress:"測試中", link:"https://sauuo0927-cmyk.github.io/hrhelper/", category:"邏輯檢核與異常分析", input:"實際加班常有申請時數與實際送出有差異，尤其碰到不同班別時段時", output:"檢核出差異錯誤之處", steps:["查詢班別","查詢實際加班時數與時段","比對班別加班開始時間是否有差異"], src:"異常出勤明細表、實際加班明細表", out:"比對差異明細表" },
   { id:8,  dept:"人資課",    grp:"hr",      name:"夜點津貼",                          type:"自行開發(前端)",   savings:2,   execTime:"1-2小時", freq:1,  users:9, progress:"已上線", link:"https://sauuo0927-cmyk.github.io/hrhelper/", category:"數據及彙整自動化",   input:"計算班別在22:00-07:00區間的同仁時數及天數", output:"計算出班別在22:00-07:00的同仁時數及天數\n使用 Power Automate 至 EIP 系統抓取資料", steps:["使用 Power Automate 至 EIP 系統自動抓取出勤資料","讀取員工班別，判斷22:00-07:00區間人員","扣除請假時數、休息日、颱風天","計算每個人的夜點時數及天數","EC驗收課及客服中心計算跨夜天數"], src:"員工出勤表、班別對照表", out:"夜點津貼計算結果" },
   { id:9,  dept:"人資課",    grp:"hr",      name:"人事保證書更新",                    type:"AI Agent",        savings:1,   execTime:"1-2小時", freq:1,  users:1, progress:"已上線", category:"數據及彙整自動化",   input:"人事保證書每三年需更新一次", output:"檢核出員工年資滿3、6、9、12、15、18、21年的名單", steps:["讀取員工名冊裡的到職日欄位","計算後三個月滿3的倍數年資"], src:"員工名冊", out:"人事保證書更新名單" },
@@ -895,6 +895,7 @@ document.getElementById("finance-cards").innerHTML = ALL_TASKS.filter(t=>t.grp==
 const WEEKLY_NOTES = {
   "預計到離職通知":      "新增項目，建立 Power Automate 自動化流程",
   "停車單單據辨識":      "Agenthub顧問回覆目前無法執行，需朝其他方向進行",
+  "預計到離職通知":      "已上線，Power Automate 每週四自動寄送",
   "案件分析":           "完成Agent建立，進行調整與測試",
   "資料整理-理賠彙整報表": "完成 Agent 建立，進行調整與測試",
   "現場作業人員排班":    "調整與測試中",
