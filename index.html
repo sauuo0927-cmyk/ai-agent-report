@@ -847,6 +847,7 @@ const testingCnt = ALL_TASKS.filter(t=>t.progress==="測試中").length;
 const newCnt     = ALL_TASKS.filter(t=>t.progress==="新需求").length;
 const evalCnt    = ALL_TASKS.filter(t=>t.progress==="評估中").length;
 const totalSave  = ALL_TASKS.reduce((a,t)=>a+t.savings,0);
+const onlineSave = ALL_TASKS.filter(t=>t.progress==="已上線").reduce((a,t)=>a+t.savings,0);
 
 document.getElementById("header-stats").innerHTML = `
   <div class="stats-row-line">
@@ -871,6 +872,16 @@ document.getElementById("header-stats").innerHTML = `
     <div class="stat-pill">
       <div class="stat-num" style="color:#2563eb">${(totalSave*12).toFixed(1)}H</div>
       <div class="stat-label">每年節省<br>總時數</div>
+    </div>
+  </div>
+  <div class="stats-row-line">
+    <div class="stat-pill" style="border-color:#6ee7b7;background:#ecfdf5">
+      <div class="stat-num" style="color:#059669">${onlineSave.toFixed(1)}H</div>
+      <div class="stat-label">已上線<br>每月節省時數</div>
+    </div>
+    <div class="stat-pill" style="border-color:#93c5fd;background:#eff6ff">
+      <div class="stat-num" style="color:#2563eb">${(onlineSave*12).toFixed(1)}H</div>
+      <div class="stat-label">已上線<br>每年節省時數</div>
     </div>
   </div>`;
 
