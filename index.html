@@ -96,8 +96,8 @@
 
   .subtitle { font-size: 17px; color: var(--text-dim); margin-top: 8px; font-weight: 300; }
 
-  .stats-row { display: flex; flex-direction: column; gap: 12px; margin-top: 36px; }
-  .stats-row-line { display: flex; gap: 16px; flex-wrap: wrap; }
+  .stats-row { display: grid; grid-template-columns: repeat(5, auto); column-gap: 16px; row-gap: 12px; margin-top: 36px; align-items: start; justify-content: start; }
+  .stats-row-line { display: contents; } /* flatten into grid */
 
   .stat-pill {
     display: flex; align-items: center; gap: 10px;
@@ -851,37 +851,43 @@ const totalSave  = ALL_TASKS.reduce((a,t)=>a+t.savings,0);
 const onlineSave = ALL_TASKS.filter(t=>t.progress==="已上線").reduce((a,t)=>a+t.savings,0);
 
 document.getElementById("header-stats").innerHTML = `
-  <div class="stats-row-line">
-    <div class="stat-pill online-pill">
-      <div class="stat-num" style="color:#059669">${onlineCnt}</div>
-      <div class="stat-label">已上線<br>項目</div>
-    </div>
-    <div class="stat-pill">
-      <div class="stat-num" style="color:#0891b2">${evalCnt}</div>
-      <div class="stat-label">評估中<br>項目</div>
-    </div>
-    <div class="stat-pill">
-      <div class="stat-num" style="color:#d97706">${testingCnt}</div>
-      <div class="stat-label">測試中<br>項目</div>
-    </div>
-    <div class="stat-pill">
-      <div class="stat-num" style="color:#059669">${totalSave.toFixed(1)}H</div>
-      <div class="stat-label">每月節省<br>總時數</div>
-    </div>
-    <div class="stat-pill">
-      <div class="stat-num" style="color:#2563eb">${(totalSave*12).toFixed(1)}H</div>
-      <div class="stat-label">每年節省<br>總時數</div>
-    </div>
+  <div class="stat-pill online-pill">
+    <div class="stat-num" style="color:#059669">${onlineCnt}</div>
+    <div class="stat-label">已上線<br>項目</div>
   </div>
-  <div class="stats-row-line">
-    <div class="stat-pill" style="border-color:#6ee7b7;background:#ecfdf5">
-      <div class="stat-num" style="color:#059669">${onlineSave.toFixed(1)}H</div>
-      <div class="stat-label">已上線<br>每月節省時數</div>
-    </div>
-    <div class="stat-pill" style="border-color:#93c5fd;background:#eff6ff">
-      <div class="stat-num" style="color:#2563eb">${(onlineSave*12).toFixed(1)}H</div>
-      <div class="stat-label">已上線<br>每年節省時數</div>
-    </div>
+  <div style="visibility:hidden" class="stat-pill">
+    <div class="stat-num">-</div><div class="stat-label">-</div>
+  </div>
+  <div class="stat-pill">
+    <div class="stat-num" style="color:#d97706">${testingCnt}</div>
+    <div class="stat-label">測試中<br>項目</div>
+  </div>
+  <div class="stat-pill">
+    <div class="stat-num" style="color:#059669">${totalSave.toFixed(1)}H</div>
+    <div class="stat-label">每月節省<br>總時數</div>
+  </div>
+  <div class="stat-pill">
+    <div class="stat-num" style="color:#2563eb">${(totalSave*12).toFixed(1)}H</div>
+    <div class="stat-label">每年節省<br>總時數</div>
+  </div>
+
+  <div style="visibility:hidden" class="stat-pill">
+    <div class="stat-num">-</div><div class="stat-label">-</div>
+  </div>
+  <div class="stat-pill">
+    <div class="stat-num" style="color:#0891b2">${evalCnt}</div>
+    <div class="stat-label">評估中<br>項目</div>
+  </div>
+  <div style="visibility:hidden" class="stat-pill">
+    <div class="stat-num">-</div><div class="stat-label">-</div>
+  </div>
+  <div class="stat-pill" style="border-color:#6ee7b7;background:#ecfdf5">
+    <div class="stat-num" style="color:#059669">${onlineSave.toFixed(1)}H</div>
+    <div class="stat-label">已上線<br>每月節省時數</div>
+  </div>
+  <div class="stat-pill" style="border-color:#93c5fd;background:#eff6ff">
+    <div class="stat-num" style="color:#2563eb">${(onlineSave*12).toFixed(1)}H</div>
+    <div class="stat-label">已上線<br>每年節省時數</div>
   </div>`;
 
 // Savings bar (maxSave needed for summary table)
