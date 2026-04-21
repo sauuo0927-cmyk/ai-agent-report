@@ -595,7 +595,6 @@
     to   { transform: scale(1);   opacity: 1; }
   }
 </style>
-<!-- 部署: 2026-04-21 01:13:25 -->
 </head>
 <body>
 
@@ -679,18 +678,28 @@
 
       <div class="progress-block">
         <div class="progress-block-label">📋 項目進度說明</div>
-        <div class="progress-text">1. 測試【加班異常檢核】系統之產出資料正確性。
-2. 測試【部門損益實績拆分】之計算邏輯及評估優化作業流程。</div>
+        <div class="progress-text">1.【部門損益實績拆分】之計算邏輯及評估優化作業流程。
+2. 新增【預計到離職名單更新】，使用 Power Automate 雲端版排程寄送通知（已上線）。</div>
       </div>
 
       <div class="progress-block">
         <div class="progress-block-label">🟢 本週上線項目</div>
-        <div class="no-online-tag">本週無上線項目</div>
+        <div class="online-tags">
+          <span class="online-tag">🟢 預計到離職名單更新</span>
+        </div>
+      </div>
+
+      <div class="progress-block">
+        <div class="progress-block-label">🎯 本週重點項目安排</div>
+        <div class="progress-text">1.【部門損益實績拆分】資料測試，評估資料匯入實績系統方式。
+2.【關係人明細】廠商與會計科目帳務邏輯測試。</div>
       </div>
 
       <div class="progress-block" style="margin-bottom:0">
-        <div class="progress-block-label">🎯 本週重點項目安排</div>
-        <div class="progress-text">測試【部門損益實績拆分】之計算邏輯，現行實績系統人員需將損益 key in 至系統，評估改以 Claude 開發。</div>
+        <div class="progress-block-label">➕ 新增項目</div>
+        <div class="online-tags">
+          <span class="online-tag">🟢 預計到離職名單更新</span>
+        </div>
       </div>
     </div>
 
@@ -706,9 +715,8 @@
 
       <div class="progress-block">
         <div class="progress-block-label">📋 項目進度說明</div>
-        <div class="progress-text">1.【案件分析更新】完成相關系統功能測試與優化調整。
-2.【店舖理賠資料】完成相關系統功能測試與優化調整。
-3.【排班小幫手】新增項目。</div>
+        <div class="progress-text">1.【案件分析更新】、【店舖理賠資料】調整完畢，已請主要使用人員進行測試。
+2.【排班小幫手】已完成提示詞設定，將進行測試。</div>
       </div>
 
       <div class="progress-block">
@@ -716,16 +724,9 @@
         <div class="no-online-tag">本週無上線項目</div>
       </div>
 
-      <div class="progress-block">
-        <div class="progress-block-label">🎯 本週重點項目安排</div>
-        <div class="progress-text">新增項目【排班小幫手】建構基本提示詞、模組測試。</div>
-      </div>
-
       <div class="progress-block" style="margin-bottom:0">
-        <div class="progress-block-label">➕ 新增項目</div>
-        <div class="online-tags">
-          <span class="online-tag" style="color:#2563eb;background:#eff6ff;border-color:#93c5fd">📌 排班小幫手</span>
-        </div>
+        <div class="progress-block-label">🎯 本週重點項目安排</div>
+        <div class="progress-text">【排班小幫手】完善提示詞優化，可自動產出客服各狀況排班。</div>
       </div>
     </div>
 
@@ -758,7 +759,7 @@
         <div class="progress-text">1.【營收袋異常彙總表】已測試完成，需調整作業人員書寫字體。
 2.【營收袋過刷分析】詢問顧問後可執行，需調整提示詞。
 3.【排班小助理】測試後結果不如預期，需再調整提示詞。
-4.【班表合併工時生成】已測試完成，待主管核准後上線。（預計 04/17 上線）
+4.【班表合併工時生成】已上線。
 5.【停車單單據辨識】顧問回覆圖檔不可建立，需討論其它精進方向。</div>
       </div>
     </div>
