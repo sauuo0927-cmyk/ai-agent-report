@@ -595,7 +595,7 @@
     to   { transform: scale(1);   opacity: 1; }
   }
 </style>
-<!-- 部署時間: 2026-04-16 03:14:22 -->
+<!-- 部署時間: 2026-04-21 00:54:21 -->
 </head>
 <body>
 
@@ -631,7 +631,7 @@
   <div class="section-header">
     <div class="section-icon" style="background:rgba(37,99,235,0.08)">📋</div>
     <div class="section-title">基本需求說明</div>
-    <span class="section-count">17 項任務</span>
+    <span class="section-count">18 項任務</span>
   </div>
   <div class="progress-legend" id="tasks-legend"></div>
 
@@ -779,14 +779,15 @@
 
 <script>
 const ALL_TASKS = [
-  { id:16, dept:"客服中心",  grp:"cs",      name:"排班小幫手",                        type:"AI Agent",        savings:0.7, execTime:"—",       freq:1,  users:1, progress:"測試中", isNew:true, category:"數據及彙整自動化",   input:"因客服班別較多且複雜，需合法合理排出所需班別", output:"依條件自動產出合法合理的排班結果", steps:["輸入班別需求與限制條件","AI依規則自動進行排班邏輯運算","產出符合規定的排班表"], src:"班別條件與限制清單", out:"排班結果表" },
+  { id:16, dept:"客服中心",  grp:"cs",      name:"排班小幫手",                        type:"AI Agent",        savings:0.7, execTime:"—",       freq:1,  users:1, progress:"測試中", category:"數據及彙整自動化",   input:"因客服班別較多且複雜，需合法合理排出所需班別", output:"依條件自動產出合法合理的排班結果", steps:["輸入班別需求與限制條件","AI依規則自動進行排班邏輯運算","產出符合規定的排班表"], src:"班別條件與限制清單", out:"排班結果表" },
   { id:1,  dept:"客服中心",  grp:"cs",      name:"案件分析",                          type:"AI Agent",        savings:7,   execTime:"30分鐘",  freq:30, users:2, progress:"測試中", category:"邏輯檢核與異常分析", input:"1. 案型反應最多問題\n2. 異常是否集中在特定物流中心、路線或店舖？", output:"1. 案型分析（配送、退貨、服務等）\n2. 異常問題排行（Top問題／路線／店舖）", steps:["彙整指定期間內的客服案件資料","將客訴內容進行分類與關鍵字分析","比對歷史數據，找出異常成長或集中","辨識可能的熱點","產出重點說明文字"], src:"客服系統-綜合分析報表(Excel)", out:"客服案型分析資料" },
   { id:2,  dept:"客服中心",  grp:"cs",      name:"資料整理-理賠彙整報表",              type:"AI Agent",        savings:9,   execTime:"60分鐘",  freq:9,  users:1, progress:"測試中", category:"資料內容提取",       input:"1. 將多張報表彙整成所需報表\n2. 檢核資料正確性\n3. 依提供權責單位產出不同報表", output:"1. 店舖類型賠償彙整表\n2. 各責任歸屬賠償彙整表", steps:["每週檢視報表資料來源正確性","依不同單位需求產出不同報表","每月依賠償日期彙整出報表"], src:"理賠總表", out:"理賠各式報表（6份）" },
+  { id:4,  dept:"店會中心",  grp:"store",   name:"班表合併工時生成",                  type:"AI Agent",        savings:1.8, execTime:"10分鐘",  freq:22, users:1, progress:"已上線", category:"數據及彙整自動化",   input:"1. 需人工維護EIP工時\n2. 提供條件給AI進行個人工時管理", output:"AI依班表產出店會中心每日工時及個人工時彙總表", steps:["人工維護EIP工時與幹部記錄工時比對","轉貼至工時Excel進行工時管理","依工時進行效率分析"], src:"工時Excel", out:"工時彙總Excel" },
   { id:3,  dept:"店會中心",  grp:"store",   name:"現場作業人員排班",                  type:"AI Agent",        savings:1.7,   execTime:"90分鐘",  freq:2,  users:1, progress:"測試中", category:"數據及彙整自動化",   input:"1. 需依國定假日及輪休、特休進行排班\n2. 提供條件給AI產出初版輪休預定班", output:"由AI完成輪休班排定同時更新輪班代碼，可直接匯入EIP", steps:["確認國定假日、休息日、特休及最低到班人員","依EIP排定輪休排班日期","全體人員簽名確認","EIP轉出公版格式匯入"], src:"輪休預定班Excel、EIP匯入公版", out:"排班結果Excel" },
-  { id:4,  dept:"店會中心",  grp:"store",   name:"班表合併工時生成",                  type:"AI Agent",        savings:1.8, execTime:"10分鐘",  freq:22, users:1, progress:"測試中", category:"數據及彙整自動化",   input:"1. 需人工維護EIP工時\n2. 提供條件給AI進行個人工時管理", output:"AI依班表產出店會中心每日工時及個人工時彙總表", steps:["人工維護EIP工時與幹部記錄工時比對","轉貼至工時Excel進行工時管理","依工時進行效率分析"], src:"工時Excel", out:"工時彙總Excel" },
   { id:5,  dept:"店會中心",  grp:"store",   name:"營收袋過刷率分析",                  type:"AI Agent",        savings:5,   execTime:"20分鐘",  freq:22, users:1, progress:"測試中", category:"資料內容提取",       input:"1. 需人工逐一比對各項數據\n2. 透由AI自動比對各項數據", output:"由AI比對完數據後，產生PDA過刷率、未過刷路線、各倉過刷率", steps:["產出當天營收袋返廠查詢及異常紀錄","計算當天營收袋總過刷筆數","比對離島店、空袋，記錄超過3筆路線","比對各倉過刷總筆數","合併3份報表分頁"], src:"MIS-WEB版TDCM640、路線路順檔、店會系統AC.2.5.3", out:"自製報表" },
   { id:6,  dept:"店會中心",  grp:"store",   name:"異常營收袋紀錄生成",                type:"AI Agent",        savings:6.3,  execTime:"30分鐘",  freq:22, users:1, progress:"測試中", category:"資料內容提取",       input:"1. 需人工逐一記錄\n2. 透由AI掃描辨識", output:"由AI掃描後匯出Excel報表", steps:["收集現場作業人員異常登記表","依店號序排列後掃描至電腦","AI進行圖檔辨認並轉呈Excel","產生報表"], src:"營收袋異常登記表（紙本掃描）", out:"自製Excel報表" },
   { id:17, dept:"店會中心",  grp:"store",   name:"停車單單據辨識",                    type:"AI Agent",        savings:5,    execTime:"—",       freq:1,  users:1, progress:"評估中", category:"資料內容提取",       input:"停車單開立後，需複印停車單再將複印資料黏貼在通知單", output:"AI辨識並產出圖檔，串接店會系統後，直接下檔到店舖", steps:["AI辨識停車單圖檔內容","產出數位化圖檔","串接店會系統","直接下檔至店舖，取代人工複印黏貼作業"], src:"停車單圖檔", out:"系統下檔至店舖之電子通知單" },
+  { id:18, dept:"人資課",    grp:"hr",      name:"預計到離職通知",                    type:"自行開發(前端)",   savings:1,   execTime:"—",       freq:4,  users:1, progress:"測試中", isNew:true, category:"數據及彙整自動化",   input:"每週四需提供預計到離職名單給相關人員，目前以人工篩選名單，再MAIL給相關人員", output:"使用 Power Automate 雲端版自動篩選預計到離職名單，排程於週四下午 5 點寄送 Office 365 Outlook 通知信", steps:["使用 Power Automate 雲端版設計自動化流程","讀取 OneDrive 到離職資料 Excel 檔","篩選預計到離職的名單","排程於每週四下午 5 點自動寄信（Office 365 Outlook）"], src:"OneDrive 到離職資料 Excel 檔", out:"每週四自動寄出預計到離職名單通知信" },
   { id:7,  dept:"人資課",    grp:"hr",      name:"加班異常檢核",                       type:"自行開發(前端)",   savings:3,   execTime:"2-3小時", freq:1,  users:1, progress:"測試中", link:"https://sauuo0927-cmyk.github.io/hrhelper/", category:"邏輯檢核與異常分析", input:"實際加班常有申請時數與實際送出有差異，尤其碰到不同班別時段時", output:"檢核出差異錯誤之處", steps:["查詢班別","查詢實際加班時數與時段","比對班別加班開始時間是否有差異"], src:"異常出勤明細表、實際加班明細表", out:"比對差異明細表" },
   { id:8,  dept:"人資課",    grp:"hr",      name:"夜點津貼",                          type:"自行開發(前端)",   savings:2,   execTime:"1-2小時", freq:1,  users:9, progress:"已上線", link:"https://sauuo0927-cmyk.github.io/hrhelper/", category:"數據及彙整自動化",   input:"計算班別在22:00-07:00區間的同仁時數及天數", output:"計算出班別在22:00-07:00的同仁時數及天數\n使用 Power Automate 至 EIP 系統抓取資料", steps:["使用 Power Automate 至 EIP 系統自動抓取出勤資料","讀取員工班別，判斷22:00-07:00區間人員","扣除請假時數、休息日、颱風天","計算每個人的夜點時數及天數","EC驗收課及客服中心計算跨夜天數"], src:"員工出勤表、班別對照表", out:"夜點津貼計算結果" },
   { id:9,  dept:"人資課",    grp:"hr",      name:"人事保證書更新",                    type:"AI Agent",        savings:1,   execTime:"1-2小時", freq:1,  users:1, progress:"已上線", category:"數據及彙整自動化",   input:"人事保證書每三年需更新一次", output:"檢核出員工年資滿3、6、9、12、15、18、21年的名單", steps:["讀取員工名冊裡的到職日欄位","計算後三個月滿3的倍數年資"], src:"員工名冊", out:"人事保證書更新名單" },
@@ -892,11 +893,12 @@ document.getElementById("finance-cards").innerHTML = ALL_TASKS.filter(t=>t.grp==
 
 // 本週進度對照 (從工作進度頁擷取)
 const WEEKLY_NOTES = {
+  "預計到離職通知":      "新增項目，建立 Power Automate 自動化流程",
   "停車單單據辨識":      "Agenthub顧問回覆目前無法執行，需朝其他方向進行",
   "案件分析":           "完成Agent建立，進行調整與測試",
   "資料整理-理賠彙整報表": "完成 Agent 建立，進行調整與測試",
   "現場作業人員排班":    "調整與測試中",
-  "班表合併工時生成":    "已測試完成，待主管核准後上線",
+  "班表合併工時生成":    "已上線",
   "營收袋過刷率分析":    "詢問顧問後可執行，需調整提示詞",
   "異常營收袋紀錄生成":  "已測試完成，需調整作業人員書寫字體",
   "加班異常檢核":        "測試系統之產出資料正確性",
