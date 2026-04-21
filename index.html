@@ -96,8 +96,55 @@
 
   .subtitle { font-size: 17px; color: var(--text-dim); margin-top: 8px; font-weight: 300; }
 
-  .stats-row { display: grid; grid-template-columns: repeat(5, auto); column-gap: 16px; row-gap: 12px; margin-top: 36px; align-items: start; justify-content: start; }
-  .stats-row-line { display: contents; } /* flatten into grid */
+  .stats-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin-top: 36px;
+    flex-wrap: wrap;
+  }
+  .stats-row-line { display: contents; }
+
+  /* Triangle group: 已上線 + 評估中 + 測試中 */
+  .stat-triangle-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .stat-triangle-top {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
+
+  /* Smaller pill variant for the top row of the triangle */
+  .stat-pill-sm {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 50px; padding: 8px 16px;
+    transition: all 0.3s;
+  }
+
+  .stat-pill-sm:hover { border-color: var(--accent); box-shadow: 0 4px 16px var(--glow); }
+
+  .stat-pill-sm.online-pill {
+    border-color: var(--online-border);
+    background: var(--online-bg);
+    animation: onlinePulse 2.5s ease-in-out infinite;
+  }
+
+  .stat-num-sm { font-family: 'Oxanium', sans-serif; font-size: 20px; font-weight: 800; }
+  .stat-label-sm { font-size: 12px; color: var(--text-dim); line-height: 1.3; }
+
+  /* connector lines visual */
+  .stat-triangle-connector {
+    width: 2px;
+    height: 10px;
+    background: linear-gradient(180deg, var(--border), transparent);
+    margin: -4px auto;
+  }
 
   .stat-pill {
     display: flex; align-items: center; gap: 10px;
@@ -851,43 +898,48 @@ const totalSave  = ALL_TASKS.reduce((a,t)=>a+t.savings,0);
 const onlineSave = ALL_TASKS.filter(t=>t.progress==="已上線").reduce((a,t)=>a+t.savings,0);
 
 document.getElementById("header-stats").innerHTML = `
-  <div class="stat-pill online-pill">
-    <div class="stat-num" style="color:#059669">${onlineCnt}</div>
-    <div class="stat-label">已上線<br>項目</div>
-  </div>
-  <div style="visibility:hidden" class="stat-pill">
-    <div class="stat-num">-</div><div class="stat-label">-</div>
-  </div>
-  <div class="stat-pill">
-    <div class="stat-num" style="color:#d97706">${testingCnt}</div>
-    <div class="stat-label">測試中<br>項目</div>
-  </div>
-  <div class="stat-pill">
-    <div class="stat-num" style="color:#059669">${totalSave.toFixed(1)}H</div>
-    <div class="stat-label">每月節省<br>總時數</div>
-  </div>
-  <div class="stat-pill">
-    <div class="stat-num" style="color:#2563eb">${(totalSave*12).toFixed(1)}H</div>
-    <div class="stat-label">每年節省<br>總時數</div>
+  <!-- 倒三角：已上線 + 測試中 在上，評估中在下 -->
+  <div class="stat-triangle-group">
+    <div class="stat-triangle-top">
+      <div class="stat-pill-sm online-pill">
+        <div class="stat-num-sm" style="color:#059669">${onlineCnt}</div>
+        <div class="stat-label-sm">已上線<br>項目</div>
+      </div>
+      <div class="stat-pill-sm">
+        <div class="stat-num-sm" style="color:#d97706">${testingCnt}</div>
+        <div class="stat-label-sm">測試中<br>項目</div>
+      </div>
+    </div>
+    <div class="stat-pill" style="padding:10px 24px">
+      <div class="stat-num" style="color:#0891b2">${evalCnt}</div>
+      <div class="stat-label">評估中<br>項目</div>
+    </div>
   </div>
 
-  <div style="visibility:hidden" class="stat-pill">
-    <div class="stat-num">-</div><div class="stat-label">-</div>
+  <!-- 間隔 -->
+  <div style="width:1px;height:60px;background:var(--border);align-self:center;margin:0 4px"></div>
+
+  <!-- 節省時數：月/年 垂直排列 -->
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div class="stat-pill">
+      <div class="stat-num" style="color:#059669">${totalSave.toFixed(1)}H</div>
+      <div class="stat-label">每月節省<br>總時數</div>
+    </div>
+    <div class="stat-pill" style="border-color:#6ee7b7;background:#ecfdf5">
+      <div class="stat-num" style="color:#059669">${onlineSave.toFixed(1)}H</div>
+      <div class="stat-label">已上線<br>每月節省時數</div>
+    </div>
   </div>
-  <div class="stat-pill">
-    <div class="stat-num" style="color:#0891b2">${evalCnt}</div>
-    <div class="stat-label">評估中<br>項目</div>
-  </div>
-  <div style="visibility:hidden" class="stat-pill">
-    <div class="stat-num">-</div><div class="stat-label">-</div>
-  </div>
-  <div class="stat-pill" style="border-color:#6ee7b7;background:#ecfdf5">
-    <div class="stat-num" style="color:#059669">${onlineSave.toFixed(1)}H</div>
-    <div class="stat-label">已上線<br>每月節省時數</div>
-  </div>
-  <div class="stat-pill" style="border-color:#93c5fd;background:#eff6ff">
-    <div class="stat-num" style="color:#2563eb">${(onlineSave*12).toFixed(1)}H</div>
-    <div class="stat-label">已上線<br>每年節省時數</div>
+
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div class="stat-pill">
+      <div class="stat-num" style="color:#2563eb">${(totalSave*12).toFixed(1)}H</div>
+      <div class="stat-label">每年節省<br>總時數</div>
+    </div>
+    <div class="stat-pill" style="border-color:#93c5fd;background:#eff6ff">
+      <div class="stat-num" style="color:#2563eb">${(onlineSave*12).toFixed(1)}H</div>
+      <div class="stat-label">已上線<br>每年節省時數</div>
+    </div>
   </div>`;
 
 // Savings bar (maxSave needed for summary table)
